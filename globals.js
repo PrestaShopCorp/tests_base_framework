@@ -9,7 +9,7 @@ global.browser = {
   options: {
     headless: JSON.parse(process.env.HEADLESS || true),
     timeout: 0,
-    slowMo: parseInt(process.env.SLOWMO, 10) || 5,
+    slowMo: parseInt(process.env.SLOW_MO, 10) || 5,
     acceptDownloads: JSON.parse(process.env.ACCEPT_DOWNLOADS || true),
   },
 };
