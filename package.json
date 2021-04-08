@@ -8,8 +8,8 @@
     "lint-fix": "eslint --fix --ignore-path .gitignore .",
     "mocha-test-desktop": "mocha --recursive --file utils/mochaSetup.js examples/mocha/scenarios/desktop",
     "mocha-test-mobile": "mocha --recursive --file utils/mochaSetup.js examples/mocha/scenarios/mobile",
-    "cucumber-test-desktop": "cucumber-js examples/cucumber/features/* --require-module @babel/register --require utils/cucumberSetup.js --require examples/cucumber/step-definitions/desktop/*",
-    "cucumber-test-mobile": "cucumber-js examples/cucumber/features/* --require-module @babel/register --require utils/cucumberSetup.js --require examples/cucumber/step-definitions/mobile/*"
+    "cucumber-test-desktop": "cucumber-js examples/cucumber/features/* --require examples/cucumber/types/* --require utils/cucumberSetup.js --require examples/cucumber/step-definitions/desktop/*",
+    "cucumber-test-mobile": "cucumber-js examples/cucumber/features/* --require examples/cucumber/types/* --require utils/cucumberSetup.js --require examples/cucumber/step-definitions/mobile/*"
   },
   "_moduleAliases": {
     "@root": ".",
