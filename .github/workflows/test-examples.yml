@@ -1,0 +1,89 @@
+name: UI tests - PHP 7.1
+
+on:
+  push:
+  pull_request:
+
+env:
+  URL: 'https://addons.prestashop.com/'
+
+
+jobs:
+
+  mocha-desktop-example:
+    runs-on: ubuntu-18.04
+    name: Mocha desktop example
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '10.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run mocha-test-desktop
+
+  cucumber-desktop-example:
+    runs-on: ubuntu-18.04
+    name: Cucumber desktop example
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '10.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run cucumber-test-desktop
+
+  mocha-mobile-example:
+    runs-on: ubuntu-18.04
+    name: Mocha mobile example
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '10.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run mocha-test-mobile
+        env:
+          PLATFORM: 'mobile'
+          DEVICE: 'Pixel 2'
+
+  cucumber-mobile-example:
+    runs-on: ubuntu-18.04
+    name: Cucumber mobile example
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '10.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm run cucumber-test-mobile
+        env:
+          PLATFORM: 'mobile'
+          DEVICE: 'Pixel 2'
