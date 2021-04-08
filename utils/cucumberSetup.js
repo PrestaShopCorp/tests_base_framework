@@ -1,9 +1,9 @@
 require('module-alias/register');
 
 // Import cucumber hooks
-const { BeforeAll, Before, After, AfterAll } = require('@cucumber/cucumber');
-
-let {setDefaultTimeout} = require('@cucumber/cucumber');
+const {
+  BeforeAll, Before, After, AfterAll,
+} = require('@cucumber/cucumber');
 
 
 // Import browser helper
@@ -13,9 +13,6 @@ const browserHelper = require('@helpers/browserHelper');
  * Create unique browser for all mocha run
  */
 BeforeAll(async () => {
-  // Set default cucumber timeout
-  setDefaultTimeout(120 * 1000);
-
   // Add browser to mocha context so we can access it from all files
   global.browser = await browserHelper.createBrowser();
 });
