@@ -1,4 +1,4 @@
-const CommonPage = require('@mochaExample/pages/commonPage');
+const CommonPage = require('@examples/pages/commonPage');
 
 class FirstVisit extends CommonPage {
   constructor() {

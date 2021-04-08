@@ -5,8 +5,8 @@ const {expect} = require('chai');
 const browserHelper = require('@helpers/browserHelper');
 
 // Import pages
-const homePage = require('@mochaExample/pages/mobile/home');
-const firstVisitPage = require('@mochaExample/pages/mobile/firstVisit');
+const homePage = require('@examples/pages/mobile/home');
+const firstVisitPage = require('@examples/pages/mobile/firstVisit');
 
 // Browser vars
 let browserContext;
@@ -32,7 +32,7 @@ describe('Go to first visit page on addons', async () => {
     await expect(actualTitle).to.equal(homePage.pageTitle);
   });
 
-  it('should go to first visit page', async function () {
+  it('should go to first visit page', async () => {
     await homePage.goToFirstVisitLink(browserTab);
 
     const actualTitle = await firstVisitPage.getPageTitle(browserTab);

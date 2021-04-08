@@ -15,7 +15,7 @@ module.exports = class CommonPage {
    * @param waitUntil
    * @returns {Promise<void>}
    */
-  async goTo(page, url,  waitUntil = 'networkidle') {
+  async goTo(page, url, waitUntil = 'networkidle') {
     await page.goto(url, {waitUntil});
   }
 
