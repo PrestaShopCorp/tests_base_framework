@@ -3,13 +3,10 @@ const {World, setDefaultTimeout, setWorldConstructor} = require('@cucumber/cucum
 // Default timeout 120 seconds
 const DEFAULT_TIMEOUT = 120 * 1000;
 
-class MyWorld extends World {
-  constructor(props) {
-    super(props);
+// Set default cucumber timeout
+setDefaultTimeout(DEFAULT_TIMEOUT);
 
-    // Set default cucumber timeout
-    setDefaultTimeout(DEFAULT_TIMEOUT);
-  }
+class MyWorld extends World {
 }
 
 setWorldConstructor(MyWorld);
