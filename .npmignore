@@ -1,0 +1,8 @@
+eslintrc.js
+.github
+.gitignore
+.mocharc.json
+.npmignore
+node_modules
+README.md
+examples
