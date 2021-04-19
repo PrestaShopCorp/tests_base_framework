@@ -62,7 +62,7 @@ A small example was done to test the browser helper, the scenario of the test is
 Before running examples, dependencies must be installed.
 
 ```shell
-nmp install
+npm install
 ```
 
 ### Mocha
