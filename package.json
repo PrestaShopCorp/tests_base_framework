@@ -1,5 +1,5 @@
 {
-  "name": "@prestashopCorp/tests_base_framework",
+  "name": "@prestashopcorp/tests_base_framework",
   "version": "1.0.0",
   "description": "Base framework for new tests project",
   "main": "index.js",
@@ -20,7 +20,12 @@
     "@examples": "examples",
     "@mochaExample": "example/mocha"
   },
-  "keywords": ["prestashop", "tests", "ui-tests", "tests-base-framework"],
+  "keywords": [
+    "prestashop",
+    "tests",
+    "ui-tests",
+    "tests-base-framework"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
