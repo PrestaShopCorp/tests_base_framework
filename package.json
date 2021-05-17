@@ -11,6 +11,9 @@
     "cucumber-test-desktop": "cucumber-js examples/cucumber/features/* --require examples/cucumber/types/* --require utils/cucumberSetup.js --require examples/cucumber/step-definitions/desktop/*",
     "cucumber-test-mobile": "cucumber-js examples/cucumber/features/* --require examples/cucumber/types/* --require utils/cucumberSetup.js --require examples/cucumber/step-definitions/mobile/*"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "_moduleAliases": {
     "@root": ".",
     "@helpers": "helpers",
