@@ -1,6 +1,6 @@
 {
   "name": "prestashop_corp_tests_base_framework",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Base framework for new tests project",
   "main": "index.js",
   "scripts": {
