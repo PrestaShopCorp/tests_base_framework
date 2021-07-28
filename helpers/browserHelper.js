@@ -1,4 +1,4 @@
-require('@root/globals');
+require('../globals');
 
 const playwright = require('playwright');
 

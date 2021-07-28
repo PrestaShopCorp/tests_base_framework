@@ -1,6 +1,6 @@
 require('module-alias/register');
 
-const helper = require('@helpers/browserHelper');
+const helper = require('../helpers/browserHelper');
 
 /**
  * Create unique browser for all mocha run

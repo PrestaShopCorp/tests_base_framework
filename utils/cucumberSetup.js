@@ -7,7 +7,7 @@ const {
 
 
 // Import browser helper
-const browserHelper = require('@helpers/browserHelper');
+const browserHelper = require('../helpers/browserHelper');
 
 /**
  * Create unique browser for all mocha run
