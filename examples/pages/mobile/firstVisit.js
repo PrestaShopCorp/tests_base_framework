@@ -1,4 +1,4 @@
-const CommonPage = require('@examples/pages/commonPage');
+const CommonPage = require('@utils/commonPage');
 
 class FirstVisit extends CommonPage {
   constructor() {
