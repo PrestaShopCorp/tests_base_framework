@@ -18,6 +18,7 @@
     "@root": ".",
     "@helpers": "helpers",
     "@examples": "examples",
+    "@utils": "utils",
     "@mochaExample": "example/mocha"
   },
   "keywords": [
