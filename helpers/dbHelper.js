@@ -38,10 +38,11 @@ class DbHelper {
    * Create a custom 'SELECT' query
    * @param table {string} Name of the table
    * @param fields {string|Array<string>} Fields to add to the request
+   * @param conditions {?string} Fields to add to the request
    * @return {Promise<string>}
    */
-  async createCustomSelectQuery(table, fields = '*') {
-    const query = customFields => `SELECT ${customFields} FROM ${table};`;
+  async createCustomSelectQuery(table, fields = '*', conditions = null) {
+    const query = customFields => `SELECT ${customFields} FROM ${table} ${!conditions ? '' : `where ${conditions}`};`;
 
     if (typeof fields === 'string') {
       return query(fields);
@@ -54,10 +55,11 @@ class DbHelper {
    * Execute a custom 'SELECT' query
    * @param table {string} Name of the table
    * @param fields {string|Array<string>} Fields to add to the request
+   * @param conditions {?string} Fields to add to the request
    * @return {Promise<Array<Object>>}
    */
-  async getResultsCustomSelectQuery(table, fields = '*') {
-    return this.getQueryResults(await this.createCustomSelectQuery(table, fields));
+  async getResultsCustomSelectQuery(table, fields = '*', conditions = null) {
+    return this.getQueryResults(await this.createCustomSelectQuery(table, fields, conditions));
   }
 
 
