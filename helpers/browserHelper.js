@@ -63,7 +63,7 @@ module.exports = {
 
   /**
    * Close the browser
-   * @param {Browser} browser Browser launched for tests
+   * @param browser {Browser} Browser launched for tests
    * @returns {Promise<void>}
    */
   async closeBrowser(browser) {
@@ -72,7 +72,7 @@ module.exports = {
 
   /**
    * Create browser context with viewport and language
-   * @param {Browser} browser Browser created with function above
+   * @param browser {Browser} Browser created with function above
    * @returns {Promise<BrowserContext>}
    */
   async createContext(browser) {
@@ -92,7 +92,7 @@ module.exports = {
 
   /**
    * Close browser context
-   * @param {BrowserContext} context Browser context created above
+   * @param context {BrowserContext} Browser context created above
    * @returns {Promise<void>}
    */
   async closeContext(context) {
@@ -101,7 +101,7 @@ module.exports = {
 
   /**
    * Add new tab on the browser
-   * @param {BrowserContext} context Browser context created above
+   * @param context {BrowserContext} Browser context created above
    * @returns {Promise<Page>}
    */
   addTab(context) {
@@ -110,10 +110,32 @@ module.exports = {
 
   /**
    * Close browser tab
-   * @param {Page} tab Browser tab created above
+   * @param tab {Page} Browser tab created above
    * @returns {Promise<void>}
    */
   async closeTab(tab) {
     await tab.close();
+  },
+
+  /**
+   * Add route to the browser tab or to the browser context
+   * @param browserElement {Page|BrowserContext}
+   * @param url {string|RegExp|function(URL):boolean}
+   * @param handler {function(Route, Request)}
+   * @return {Promise<void>}
+   */
+  async addRoute(browserElement, url, handler) {
+    await browserElement.route(url, handler);
+  },
+
+  /**
+   * Delete route to the browser tab or to the browser context
+   * @param browserElement {Page|BrowserContext}
+   * @param url {string|RegExp|function(URL):boolean}
+   * @param handler {function(Route, Request)}
+   * @return {Promise<void>}
+   */
+  async deleteRoute(browserElement, url, handler) {
+    await browserElement.unroute(url, handler);
   },
 };
