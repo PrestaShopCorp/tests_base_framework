@@ -148,5 +148,5 @@ module.exports = {
    */
   async addInitScript(browserElement, script, args = undefined) {
     await browserElement.addInitScript(script, args);
-  }
+  },
 };
