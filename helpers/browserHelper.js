@@ -138,4 +138,15 @@ module.exports = {
   async deleteRoute(browserElement, url, handler) {
     await browserElement.unroute(url, handler);
   },
+
+  /**
+   * Add init script to the browser tab or to the browser context
+   * @param browserElement {Page|BrowserContext}
+   * @param script {function|string|Object}
+   * @param args {Serializable}
+   * @return {Promise<void>}
+   */
+  async addInitScript(browserElement, script, args = undefined) {
+    await browserElement.addInitScript(script, args);
+  }
 };
