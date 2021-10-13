@@ -11,12 +11,14 @@ global.browser = {
     timeout: 0,
     slowMo: parseInt(process.env.SLOW_MO, 10) || 5,
     acceptDownloads: JSON.parse(process.env.ACCEPT_DOWNLOADS || true),
+    args: [],
   },
 };
 
 // Chromium options
 global.chromiumBrowser = global.browser;
 global.chromiumBrowser.options.chromiumSandbox = false;
+global.chromiumBrowser.options.args.push('--disable-web-security');
 
 // Context options
 global.browserContext = {
