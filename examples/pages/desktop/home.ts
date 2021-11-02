@@ -1,6 +1,11 @@
-const CommonPage = require('@utils/commonPage');
+import 'module-alias/register';
+import {CommonPage} from '@utils/commonPage';
+import {Page} from 'playwright';
 
 class Home extends CommonPage {
+  public pageTitle: string;
+  private readonly firstVisitLink: string;
+
   constructor() {
     super();
 
@@ -13,12 +18,13 @@ class Home extends CommonPage {
 
   /**
    * Click on 'First Visit' link
-   * @param page
+   * @param page {Page} Browser tab
    * @returns {Promise<void>}
    */
-  async goToFirstVisitLink(page) {
+  async goToFirstVisitLink(page: Page) {
     await this.clickAndWaitForNavigation(page, this.firstVisitLink);
   }
 }
 
-module.exports = new Home();
+const home = new Home();
+export {home};

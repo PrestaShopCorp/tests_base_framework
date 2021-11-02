@@ -1,0 +1,29 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "prettier"
+  ],
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "no-console": 2,
+    "max-len": ["error", { "code": 120 }],
+    "@typescript-eslint/ban-ts-comment": "off",
+    "@typescript-eslint/ban-types": [
+      "error",
+      {
+        "types": {
+          "Function": false
+        }
+      }
+    ],
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "require-jsdoc": "warn"
+  }
+}

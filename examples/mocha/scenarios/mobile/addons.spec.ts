@@ -1,16 +1,19 @@
-// Import chai
-const {expect} = require('chai');
+import 'module-alias/register';
+
+import {expect} from 'chai';
 
 // Import browser helper
-const browserHelper = require('@helpers/browserHelper');
+import {browserHelper} from '@helpers/browserHelper';
+import {GlobalVars} from '@helpers/globalVars';
 
 // Import pages
-const homePage = require('@examples/pages/desktop/home');
-const firstVisitPage = require('@examples/pages/desktop/firstVisit');
+import {home as homePage} from '@examples/pages/mobile/home';
+import {firstVisit as firstVisitPage} from '@examples/pages/mobile/firstVisit';
+import {BrowserContext, Page} from 'playwright';
 
 // Browser vars
-let browserContext;
-let browserTab;
+let browserContext: BrowserContext;
+let browserTab: Page;
 
 describe('Go to first visit page on addons', async () => {
   // Create context and add tab
@@ -25,8 +28,8 @@ describe('Go to first visit page on addons', async () => {
     await browserHelper.closeContext(browserContext);
   });
 
-  it(`should go to '${global.url}'`, async () => {
-    await homePage.goTo(browserTab, global.url);
+  it(`should go to '${GlobalVars.url}'`, async () => {
+    await homePage.goTo(browserTab, GlobalVars.url);
 
     const actualTitle = await homePage.getPageTitle(browserTab);
     await expect(actualTitle).to.equal(homePage.pageTitle);
