@@ -24,6 +24,7 @@
       }
     ],
     "quotes": ["error", "single", { "avoidEscape": true }],
-    "require-jsdoc": "warn"
+    "require-jsdoc": "warn",
+    "@typescript-eslint/no-non-null-assertion": "off"
   }
 }

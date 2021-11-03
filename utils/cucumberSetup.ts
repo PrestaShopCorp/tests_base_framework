@@ -1,10 +1,10 @@
-// Import cucumber hooks
+import type {Browser} from 'playwright';
+
 import {
   BeforeAll, Before, After, AfterAll,
 } from '@cucumber/cucumber';
 
 import * as browserHelper from '../helpers/browserHelper';
-import {Browser} from 'playwright';
 
 let browser: Browser|null;
 
@@ -37,5 +37,5 @@ After(async function () {
  * Close browser after finish the run
  */
 AfterAll(async function () {
-  await browserHelper.closeBrowser(browser);
+  await browserHelper.closeBrowser(browser!);
 });

@@ -1,4 +1,5 @@
-eslintrc.js
+.eslintrc
+.eslintignore
 .github
 .gitignore
 .mocharc.json

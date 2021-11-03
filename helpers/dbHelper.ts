@@ -1,4 +1,4 @@
-import {Pool} from 'mysql2/promise';
+import type {Pool, Query} from 'mysql2/promise';
 import * as mysql from 'mysql2/promise';
 import {GlobalVars} from './globalVars';
 

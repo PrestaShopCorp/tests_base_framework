@@ -2,15 +2,12 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
-    "outDir": "./dist",
     "skipLibCheck": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "noImplicitAny": true,
-    "strict": false,
-    //"allowJs": true,
-    "noEmit": true,
-    "sourceMap": true,
-    "esModuleInterop": true,
+    "noImplicitThis": false,
+    "strict": true,
+    "strictFunctionTypes": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": "./",
     "paths": {
@@ -18,8 +15,12 @@
       "@helpers/*": ["helpers/*"],
       "@examples/*": ["examples/*"],
       "@utils/*": ["utils/*"],
-      "@mochaExample/*": ["example/mocha/*"]
-    }
-  },
-  "exclude": ["node_modules/*"],
+      "@mochaExample/*": ["example/mocha/*"],
+      "*": ["*", "node_modules/playwright/types/*"]
+    },
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/playwright/types",
+    ]
+  }
 }

@@ -11,7 +11,7 @@ import {home as homePage} from '@examples/pages/desktop/home';
 import {firstVisit as firstVisitPage} from '@examples/pages/desktop/firstVisit';
 
 Given('I go to url addons url', async function () {
-  await homePage.goTo(this.browserTab, GlobalVars.url);
+  await homePage.goTo(this.browserTab, GlobalVars.url!);
 });
 
 Then('I am on addons home page', async function () {

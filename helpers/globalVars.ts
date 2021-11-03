@@ -1,12 +1,4 @@
-import * as playwright from 'playwright';
-import {
-  myBrowserConfig,
-  myBrowserOptions,
-  myContextConfig,
-  myContextOption,
-  myDbConfig,
-  myDeviceConfig
-} from '@root/types/browserType.d';
+import {devices} from 'playwright';
 
 export abstract class GlobalVars {
   private static browsersList = ['chromium', 'firefox', 'webkit'];
@@ -15,7 +7,7 @@ export abstract class GlobalVars {
   /* Browser vars and functions */
   public static platform = process.env.PLATFORM || 'desktop';
 
-  public static browser: myBrowserConfig = {
+  public static browser = {
     name: process.env.BROWSER || 'chromium',
 
     // Define browser options
@@ -31,7 +23,7 @@ export abstract class GlobalVars {
   /**
    * Get browser options
    */
-  public static getBrowserOptions(): myBrowserOptions {
+  public static getBrowserOptions() {
     if (this.platformsList.indexOf(this.platform) === -1) {
       throw new Error(`The framework can't handle the platform ${this.platform}`)
     }
@@ -40,18 +32,24 @@ export abstract class GlobalVars {
       throw new Error(`The framework can't handle the browser ${this.browser.name}`);
     }
 
-    const browserOptions = this.browser.options;
+    let browserOptions;
 
     if (this.platform === 'mobile' || this.browser.name === 'chromium') {
-    this.browser.options.chromiumSandbox = false;
-    this.browser.options.args.push('--disable-web-security');
+      browserOptions = {
+        ...this.browser.options,
+        chromiumSandbox: false,
+      }
+
+      browserOptions.args.push('--disable-web-security');
+    } else {
+      browserOptions = this.browser.options;
     }
 
     return browserOptions;
   }
 
   /* Browser context vars and functions */
-  public static browserContext: myContextConfig = {
+  public static browserContext = {
     options: {
       viewport: {
         width: parseInt(process.env.WIDTH || '1680', 10),
@@ -61,18 +59,18 @@ export abstract class GlobalVars {
     },
   };
 
-  public static device: myDeviceConfig = {
+  public static device = {
     name: process.env.DEVICE,
   };
 
   /**
    * Get Browser context options
    */
-  public static getBrowserContextOptions(): myContextOption {
+  public static getBrowserContextOptions() {
     let contextOptions = this.browserContext.options;
 
     if (this.platform === 'mobile') {
-      const device = playwright.devices[this.device.name];
+      const device = devices[this.device.name!];
 
       contextOptions = {
         ...contextOptions,
@@ -84,10 +82,10 @@ export abstract class GlobalVars {
   }
 
   /* Url vars and functions */
-  public static url: string = process.env.URL;
+  public static url?: string = process.env.URL;
 
   /* DB helper vars and functions */
-  public static db: myDbConfig = {
+  public static db = {
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || '',

@@ -1,9 +1,9 @@
+import type {BrowserContext, Page, ElementHandle, JSHandle} from 'playwright';
+
 /**
  * Parent page: Page, contains functions that can be used in every page (BO, FO ...)
  * @class
  */
-import {BrowserContext, Page, ElementHandle} from 'playwright';
-
 export class CommonPage {
   /**
    * Get page title
@@ -360,7 +360,7 @@ export class CommonPage {
   ): Promise<number> {
     await page.waitForTimeout(timeout);
     const text = await this.getTextContent(page, selector);
-    const number = /\d+/g.exec(text).toString();
+    const number = /\d+/g.exec(text!)!.toString();
 
     return parseInt(number, 10);
   }
@@ -456,7 +456,7 @@ export class CommonPage {
     filePath: string
   ): Promise<void> {
     const input = await page.$(selector);
-    await input.setInputFiles(filePath);
+    await input!.setInputFiles(filePath);
   }
 
   /**
@@ -487,9 +487,8 @@ export class CommonPage {
   getParentElement(
     page: Page,
     selector: string
-  ): Promise<ElementHandle> {
-    /* eslint-env browser */
-    return page.evaluateHandle(sl => document.querySelector(sl).parentElement, selector);
+  ): Promise<JSHandle<null> | ElementHandle<HTMLElement>> {
+    return page.evaluateHandle(sl => document.querySelector(sl)!.parentElement, selector);
   }
 
   /**
@@ -497,13 +496,13 @@ export class CommonPage {
    * @param page {Page} Browser tab
    * @param selector {string} Selector to click on
    * @param targetBlank {boolean} Link has attribute target=blank
-   * @returns {Promise<string>}
+   * @returns {Promise<string|null>}
    */
   async clickAndWaitForDownload(
     page: Page,
     selector: string,
     targetBlank = false
-  ): Promise<string> {
+  ): Promise<string|null> {
     // Delete the target because a new tab is opened when downloading the file
     if (targetBlank) {
       // @ts-ignore

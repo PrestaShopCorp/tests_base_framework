@@ -1,8 +1,8 @@
-import {Browser, BrowserContext, Page, Route, Request} from 'playwright';
+import type {Browser, BrowserContext, Page, Route, Request} from 'playwright';
+import type {Serializable} from 'playwright/types/structs';
 
 import * as playwright from 'playwright';
 import {GlobalVars} from './globalVars';
-import {Serializable} from 'playwright/types/structs';
 
 /**
  * Create browser with options
@@ -21,7 +21,7 @@ async function createBrowser(): Promise<Browser|null> {
       return (await playwright[GlobalVars.browser.name].launch(browserOptions));
     } catch (e) {
       if (attempt === 3) {
-        throw new Error(e);
+        throw new Error((e as Error).message);
       } else {
         await (new Promise(resolve => setTimeout(resolve, 5000)));
         attempt += 1;
@@ -90,7 +90,7 @@ async function addRoute(
   browserElement : Page|BrowserContext,
   url: string|RegExp|((url: URL) => boolean),
   handler: ((route: Route, request: Request) => void),
-) {
+): Promise<void> {
   await browserElement.route(url, handler);
 }
 
@@ -105,7 +105,7 @@ async function deleteRoute(
   browserElement : Page|BrowserContext,
   url: string|RegExp|((url: URL) => boolean),
   handler: ((route: Route, request: Request) => void),
-) {
+): Promise<void> {
   await browserElement.unroute(url, handler);
 }
 
@@ -120,7 +120,7 @@ async function addInitScript(
   browserElement : Page|BrowserContext,
   script: Function|string|{path?: string, content?: string},
   args?: Serializable,
-) {
+):Promise<void> {
   await browserElement.addInitScript(script, args);
 }
 

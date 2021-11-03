@@ -1,6 +1,7 @@
 import 'module-alias/register';
 
 import {expect} from 'chai';
+import type {BrowserContext, Page} from 'playwright';
 
 // Import browser helper
 import {browserHelper} from '@helpers/browserHelper';
@@ -9,7 +10,6 @@ import {GlobalVars} from '@helpers/globalVars';
 // Import pages
 import {home as homePage} from '@examples/pages/desktop/home';
 import {firstVisit as firstVisitPage} from '@examples/pages/desktop/firstVisit';
-import {BrowserContext, Page} from 'playwright';
 
 // Browser vars
 let browserContext: BrowserContext;
@@ -29,7 +29,7 @@ describe('Go to first visit page on addons', async () => {
   });
 
   it(`should go to '${GlobalVars.url}'`, async () => {
-    await homePage.goTo(browserTab, GlobalVars.url);
+    await homePage.goTo(browserTab, GlobalVars.url!);
 
     const actualTitle = await homePage.getPageTitle(browserTab);
     await expect(actualTitle).to.equal(homePage.pageTitle);
