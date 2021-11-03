@@ -1,4 +1,4 @@
-import {createBrowser, closeBrowser} from '../helpers/browserHelper';
+import {createBrowser, closeBrowser} from '../../helpers/browserHelper';
 
 /**
  * Create unique browser for all mocha run

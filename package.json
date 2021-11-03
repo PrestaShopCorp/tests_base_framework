@@ -5,20 +5,20 @@
   "scripts": {
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "test:mocha:desktop": "mocha --recursive --file utils/mochaSetup.ts examples/mocha/scenarios/desktop/**/*.ts",
-    "test:mocha:mobile": "mocha --recursive --file utils/mochaSetup.ts examples/mocha/scenarios/mobile/**/*.ts",
-    "test:cucumber:desktop": "cucumber-js examples/cucumber/features/* --require examples/cucumber/types/* --require utils/cucumberSetup.ts --require examples/cucumber/step-definitions/desktop/* --require-module ts-node/register",
-    "test:cucumber:mobile": "cucumber-js examples/cucumber/features/* --require examples/cucumber/types/* --require utils/cucumberSetup.ts --require examples/cucumber/step-definitions/mobile/* --require-module ts-node/register"
+    "test:mocha:desktop": "mocha --recursive --file src/utils/mocha/setup.ts examples/mocha/scenarios/desktop/**/*.ts",
+    "test:mocha:mobile": "mocha --recursive --file src/utils/mocha/setup.ts examples/mocha/scenarios/mobile/**/*.ts",
+    "test:cucumber:desktop": "cucumber-js examples/cucumber/features/* --require examples/cucumber/types/* --require src/utils/cucumber/setup.ts --require examples/cucumber/step-definitions/desktop/* --require-module ts-node/register",
+    "test:cucumber:mobile": "cucumber-js examples/cucumber/features/* --require examples/cucumber/types/* --require src/utils/cucumber/setup.ts --require examples/cucumber/step-definitions/mobile/* --require-module ts-node/register"
   },
   "publishConfig": {
     "access": "public"
   },
   "_moduleAliases": {
     "@root": ".",
-    "@helpers": "helpers",
+    "@helpers": "src/helpers",
     "@examples": "examples",
-    "@utils": "utils",
-    "@mochaExample": "example/mocha"
+    "@utils": "src/utils",
+    "@pages": "src/utils/pages"
   },
   "keywords": [
     "prestashop",

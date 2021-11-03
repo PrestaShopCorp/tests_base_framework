@@ -1,4 +1,5 @@
 {
+  "include": ["src/helpers/**/*.ts", "src/utils/pages/**/*.ts"],
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
@@ -8,19 +9,22 @@
     "noImplicitThis": false,
     "strict": true,
     "strictFunctionTypes": true,
+    "declaration": true,
+    "declarationDir": "./types",
+    "emitDeclarationOnly": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": "./",
     "paths": {
       "@root/*": ["./*"],
-      "@helpers/*": ["helpers/*"],
+      "@helpers/*": ["src/helpers/*"],
       "@examples/*": ["examples/*"],
-      "@utils/*": ["utils/*"],
-      "@mochaExample/*": ["example/mocha/*"],
+      "@utils/*": ["src/utils/*"],
+      "@pages/*": ["src/utils/pages/*"],
       "*": ["*", "node_modules/playwright/types/*"]
     },
     "typeRoots": [
       "./node_modules/@types",
-      "./node_modules/playwright/types",
+      "./node_modules/playwright/types"
     ]
   }
 }

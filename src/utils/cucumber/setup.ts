@@ -4,7 +4,7 @@ import {
   BeforeAll, Before, After, AfterAll,
 } from '@cucumber/cucumber';
 
-import * as browserHelper from '../helpers/browserHelper';
+import * as browserHelper from '../../helpers/browserHelper';
 
 let browser: Browser|null;
 
