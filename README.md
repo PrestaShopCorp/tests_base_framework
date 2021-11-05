@@ -73,10 +73,10 @@ To run mocha tests :
 
 ```shell
 # For Desktop
-URL='yourURL' npm run mocha-test-desktop
+URL='yourURL' npm run test:mocha:desktop
 
 # For Mobile
-BROWSER='chromium' PLATFORM='mobile' DEVICE='Pixel 2' URL='yourURL' npm run mocha-test-mobile
+BROWSER='chromium' PLATFORM='mobile' DEVICE='Pixel 2' URL='yourURL' npm run test:mocha:mobile
 ```
 
 ### Cucumber
@@ -87,8 +87,8 @@ To run cucumber tests :
 
 ```shell
 # For Desktop
-URL='yourURL' npm run cucumber-test-desktop
+URL='yourURL' npm run test:cucumber:desktop
 
 # For Mobile
-BROWSER='chromium' PLATFORM='mobile' DEVICE='Pixel 2' URL='yourURL' npm run cucumber-test-mobile
+BROWSER='chromium' PLATFORM='mobile' DEVICE='Pixel 2' URL='yourURL' npm run test:cucumber:mobile
 ```

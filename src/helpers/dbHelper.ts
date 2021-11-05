@@ -1,36 +1,30 @@
-require('module-alias/register');
-require('@utils/globals');
-
-const mysql = require('mysql2/promise');
+import type {Pool} from 'mysql2/promise';
+import * as mysql from 'mysql2/promise';
+import {GlobalVars} from './globalVars';
 
 class DbHelper {
+  private connection: Pool;
   constructor() {
     // Create connexion
-    this.connection = mysql.createPool({
-      host: global.DB.HOST,
-      user: global.DB.USER,
-      password: global.DB.PASSWORD,
-      database: global.DB.NAME,
-    });
+    this.connection = mysql.createPool(GlobalVars.db);
   }
 
   // functions
-
   /**
    * Execute an sql query
-   * @param query {String} Query to execute
+   * @param query {string} Query to execute
    * @returns {Query}
    */
-  executeQuery(query) {
+  executeQuery(query: string) {
     return this.connection.execute(query);
   }
 
   /**
    * Get query results
-   * @param query {String} Query to execute
+   * @param query {string} Query to execute
    * @returns {Promise<Array<Object>>}
    */
-  async getQueryResults(query) {
+  async getQueryResults(query: string) {
     return (await this.executeQuery(query))[0];
   }
 
@@ -41,8 +35,13 @@ class DbHelper {
    * @param conditions {?string} Fields to add to the request
    * @return {Promise<string>}
    */
-  async createCustomSelectQuery(table, fields = '*', conditions = null) {
-    const query = customFields => `SELECT ${customFields} FROM ${table} ${!conditions ? '' : `where ${conditions}`};`;
+  async createCustomSelectQuery(
+    table: string,
+    fields: string|Array<string> = '*',
+    conditions?: string,
+  ) {
+    const query =
+      (customFields: string) => `SELECT ${customFields} FROM ${table} ${!conditions ? '' : `where ${conditions}`};`;
 
     if (typeof fields === 'string') {
       return query(fields);
@@ -58,28 +57,32 @@ class DbHelper {
    * @param conditions {?string} Fields to add to the request
    * @return {Promise<Array<Object>>}
    */
-  async getResultsCustomSelectQuery(table, fields = '*', conditions = null) {
-    return this.getQueryResults(await this.createCustomSelectQuery(table, fields, conditions));
+  async getResultsCustomSelectQuery(
+    table: string,
+    fields: string|Array<string> = '*',
+    conditions?: string,
+  ) {
+    return this.getQueryResults(
+      await this.createCustomSelectQuery(table, fields, conditions),
+    );
   }
-
 
   /**
    * Get query fields
-   * @param query {String} Query to execute
+   * @param query {string} Query to execute
    * @returns {Promise<Array<Object>>}
    */
-  async getQueryFields(query) {
+  async getQueryFields(query: string) {
     return (await this.executeQuery(query))[1];
   }
-
 
   /**
    * Destroy sql connection
    * @return {Promise<void>}
    */
-  async destroyConnection() {
+  async destroyConnection(): Promise<void> {
     await this.connection.end();
   }
 }
-
-module.exports = new DbHelper();
+const dbHelper = new DbHelper();
+export {dbHelper};

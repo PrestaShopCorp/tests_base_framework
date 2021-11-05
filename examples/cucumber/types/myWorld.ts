@@ -1,4 +1,4 @@
-const {World, setDefaultTimeout, setWorldConstructor} = require('@cucumber/cucumber');
+import {World, setDefaultTimeout, setWorldConstructor} from '@cucumber/cucumber';
 
 // Default timeout 120 seconds
 const DEFAULT_TIMEOUT = 120 * 1000;

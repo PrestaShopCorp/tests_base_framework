@@ -1,25 +1,24 @@
 {
   "name": "prestashop_corp_tests_base_framework",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Base framework for new tests project",
-  "main": "index.js",
   "scripts": {
-    "lint": "eslint --ignore-path .gitignore .",
-    "lint-fix": "eslint --fix --ignore-path .gitignore .",
-    "mocha-test-desktop": "mocha --recursive --file utils/mochaSetup.js examples/mocha/scenarios/desktop",
-    "mocha-test-mobile": "mocha --recursive --file utils/mochaSetup.js examples/mocha/scenarios/mobile",
-    "cucumber-test-desktop": "cucumber-js examples/cucumber/features/* --require examples/cucumber/types/* --require utils/cucumberSetup.js --require examples/cucumber/step-definitions/desktop/*",
-    "cucumber-test-mobile": "cucumber-js examples/cucumber/features/* --require examples/cucumber/types/* --require utils/cucumberSetup.js --require examples/cucumber/step-definitions/mobile/*"
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "test:mocha:desktop": "mocha --recursive --file src/utils/mocha/setup.ts examples/mocha/scenarios/desktop/**/*.ts",
+    "test:mocha:mobile": "mocha --recursive --file src/utils/mocha/setup.ts examples/mocha/scenarios/mobile/**/*.ts",
+    "test:cucumber:desktop": "cucumber-js examples/cucumber/features/* --require examples/cucumber/types/* --require src/utils/cucumber/setup.ts --require examples/cucumber/step-definitions/desktop/* --require-module ts-node/register",
+    "test:cucumber:mobile": "cucumber-js examples/cucumber/features/* --require examples/cucumber/types/* --require src/utils/cucumber/setup.ts --require examples/cucumber/step-definitions/mobile/* --require-module ts-node/register"
   },
   "publishConfig": {
     "access": "public"
   },
   "_moduleAliases": {
     "@root": ".",
-    "@helpers": "helpers",
+    "@helpers": "src/helpers",
     "@examples": "examples",
-    "@utils": "utils",
-    "@mochaExample": "example/mocha"
+    "@utils": "src/utils",
+    "@pages": "src/utils/pages"
   },
   "keywords": [
     "prestashop",
@@ -36,14 +35,19 @@
     "mochawesome": "^6.2.2",
     "module-alias": "^2.2.2",
     "mysql2": "^2.3.0",
-    "playwright": "1.13.1"
+    "playwright": "1.13.1",
+    "ts-loader": "^9.2.6",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.4.4"
   },
   "devDependencies": {
-    "@babel/register": "^7.13.14",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb-base": "^13.2.0",
-    "eslint-config-prestashop": "^0.1.0",
-    "eslint-plugin-import": "^2.22.1"
+    "@types/chai": "^4.2.22",
+    "@types/cucumber": "^7.0.0",
+    "@types/mocha": "^9.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.3.0",
+    "@typescript-eslint/parser": "^5.3.0",
+    "eslint": "^8.1.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0"
   }
 }
