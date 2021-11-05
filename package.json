@@ -1,6 +1,6 @@
 {
   "name": "prestashop_corp_tests_base_framework",
-  "version": "1.0.3",
+  "version": "2.0.0",
   "description": "Base framework for new tests project",
   "scripts": {
     "lint": "eslint . --ext .ts",
