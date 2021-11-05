@@ -7,7 +7,6 @@ on:
 env:
   URL: 'https://addons.prestashop.com/'
 
-
 jobs:
 
   mocha-desktop-example:
@@ -20,13 +19,13 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '15.x'
+          node-version: '14.x'
 
       - name: Install dependencies
         run: npm install
 
       - name: Run tests
-        run: npm run mocha-test-desktop
+        run: npm run test:mocha:desktop
 
   cucumber-desktop-example:
     runs-on: ubuntu-18.04
@@ -44,7 +43,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm run cucumber-test-desktop
+        run: npm run test:cucumber:desktop
 
   mocha-mobile-example:
     runs-on: ubuntu-18.04
@@ -62,7 +61,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm run mocha-test-mobile
+        run: npm run test:mocha:mobile
         env:
           PLATFORM: 'mobile'
           DEVICE: 'Pixel 2'
@@ -83,7 +82,7 @@ jobs:
         run: npm install
 
       - name: Run tests
-        run: npm run cucumber-test-mobile
+        run: npm run test:cucumber:mobile
         env:
           PLATFORM: 'mobile'
           DEVICE: 'Pixel 2'

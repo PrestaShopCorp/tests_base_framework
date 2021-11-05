@@ -1,6 +1,8 @@
-const CommonPage = require('@utils/commonPage');
+import 'module-alias/register';
+import {CommonPage} from '@pages/commonPage';
 
 class FirstVisit extends CommonPage {
+  public pageFrTitle: string;
   constructor() {
     super();
 
@@ -9,4 +11,5 @@ class FirstVisit extends CommonPage {
   }
 }
 
-module.exports = new FirstVisit();
+const firstVisit = new FirstVisit();
+export {firstVisit};

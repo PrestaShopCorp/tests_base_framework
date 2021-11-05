@@ -1,16 +1,17 @@
-require('module-alias/register');
-// Import chai
-const {expect} = require('chai');
+import 'module-alias/register';
+
+import {expect} from 'chai';
+import {GlobalVars} from '@helpers/globalVars';
 
 // Import cucumber
-const {Given, When, Then} = require('@cucumber/cucumber');
+import {Given, When, Then} from '@cucumber/cucumber';
 
 // Import pages
-const homePage = require('@examples/pages/desktop/home');
-const firstVisitPage = require('@examples/pages/desktop/firstVisit');
+import {home as homePage} from '@examples/pages/desktop/home';
+import {firstVisit as firstVisitPage} from '@examples/pages/desktop/firstVisit';
 
 Given('I go to url addons url', async function () {
-  await homePage.goTo(this.browserTab, global.url);
+  await homePage.goTo(this.browserTab, GlobalVars.url!);
 });
 
 Then('I am on addons home page', async function () {
