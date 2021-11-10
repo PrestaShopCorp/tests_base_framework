@@ -1,5 +1,10 @@
 {
-  "include": ["src/helpers/**/*.ts", "src/utils/pages/**/*.ts"],
+  "include": [
+    "src/index.ts",
+    "src/helpers/**/*.ts",
+    "src/utils/pages/**/*.ts",
+    "src/utils/mocha/**/*.ts"
+  ],
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
@@ -11,9 +16,9 @@
     "strictFunctionTypes": true,
     "declaration": true,
     "declarationDir": "./types",
-    "emitDeclarationOnly": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "baseUrl": "./",
+    "outDir": "./dist",
     "paths": {
       "@root/*": ["./*"],
       "@helpers/*": ["src/helpers/*"],

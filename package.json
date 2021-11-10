@@ -2,11 +2,18 @@
   "name": "prestashop_corp_tests_base_framework",
   "version": "2.0.0",
   "description": "Base framework for new tests project",
+  "main": "dist/index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "/dist",
+    "/types"
+  ],
   "scripts": {
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "test:mocha:desktop": "mocha --recursive --file src/utils/mocha/setup.ts examples/mocha/scenarios/desktop/**/*.ts",
-    "test:mocha:mobile": "mocha --recursive --file src/utils/mocha/setup.ts examples/mocha/scenarios/mobile/**/*.ts",
+    "build": "tsc",
+    "test:mocha:desktop": "mocha --recursive examples/mocha/scenarios/desktop/**/*.ts",
+    "test:mocha:mobile": "mocha --recursive examples/mocha/scenarios/mobile/**/*.ts",
     "test:cucumber:desktop": "cucumber-js examples/cucumber/features/* --require examples/cucumber/types/* --require src/utils/cucumber/setup.ts --require examples/cucumber/step-definitions/desktop/* --require-module ts-node/register",
     "test:cucumber:mobile": "cucumber-js examples/cucumber/features/* --require examples/cucumber/types/* --require src/utils/cucumber/setup.ts --require examples/cucumber/step-definitions/mobile/* --require-module ts-node/register"
   },
