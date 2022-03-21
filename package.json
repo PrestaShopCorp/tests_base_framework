@@ -1,6 +1,6 @@
 {
   "name": "prestashop_corp_tests_base_framework",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Base framework for new tests project",
   "main": "dist/index.js",
   "types": "types/index.d.ts",
@@ -38,6 +38,7 @@
   "dependencies": {
     "@cucumber/cucumber": "^7.1.0",
     "chai": "^4.3.4",
+    "dotenv": "^16.0.0",
     "mocha": "^8.3.2",
     "mochawesome": "^6.2.2",
     "module-alias": "^2.2.2",
