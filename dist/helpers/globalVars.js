@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GlobalVars = void 0;
+require("dotenv/config");
 const playwright_1 = require("playwright");
 class GlobalVars {
     /**

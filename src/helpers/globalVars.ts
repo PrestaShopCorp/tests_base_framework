@@ -1,6 +1,7 @@
+import 'dotenv/config';
 import {devices} from 'playwright';
 
-export abstract class GlobalVars {
+export class GlobalVars {
   private static browsersList = ['chromium', 'firefox', 'webkit'];
   private static platformsList = ['desktop', 'mobile'];
 

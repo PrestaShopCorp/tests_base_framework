@@ -1,4 +1,5 @@
-export declare abstract class GlobalVars {
+import 'dotenv/config';
+export declare class GlobalVars {
     private static browsersList;
     private static platformsList;
     static platform: string;
