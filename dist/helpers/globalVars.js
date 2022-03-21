@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GlobalVars = void 0;
+require("dotenv/config");
 const playwright_1 = require("playwright");
 class GlobalVars {
     /**
@@ -59,6 +60,10 @@ GlobalVars.browserContext = {
             height: parseInt(process.env.HEIGHT || '900', 10),
         },
         locale: process.env.LOCALE || 'fr-FR',
+        httpCredentials: {
+            username: process.env.HTTP_CRED_USERNAME || '',
+            password: process.env.HTTP_CRED_PASSWORD || '',
+        }
     },
 };
 GlobalVars.device = {

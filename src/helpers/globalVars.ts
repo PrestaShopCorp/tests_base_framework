@@ -1,6 +1,7 @@
+import 'dotenv/config';
 import {devices} from 'playwright';
 
-export abstract class GlobalVars {
+export class GlobalVars {
   private static browsersList = ['chromium', 'firefox', 'webkit'];
   private static platformsList = ['desktop', 'mobile'];
 
@@ -56,6 +57,10 @@ export abstract class GlobalVars {
         height: parseInt(process.env.HEIGHT || '900', 10),
       },
       locale: process.env.LOCALE || 'fr-FR',
+      httpCredentials: {
+        username: process.env.HTTP_CRED_USERNAME || '',
+        password: process.env.HTTP_CRED_PASSWORD || '',
+      }
     },
   };
 
