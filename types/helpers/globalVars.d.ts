@@ -37,6 +37,10 @@ export declare class GlobalVars {
                 height: number;
             };
             locale: string;
+            httpCredentials: {
+                username: string;
+                password: string;
+            };
         };
     };
     static device: {
@@ -51,6 +55,10 @@ export declare class GlobalVars {
             height: number;
         };
         locale: string;
+        httpCredentials: {
+            username: string;
+            password: string;
+        };
     };
     static url?: string;
     static db: {

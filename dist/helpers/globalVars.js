@@ -60,6 +60,10 @@ GlobalVars.browserContext = {
             height: parseInt(process.env.HEIGHT || '900', 10),
         },
         locale: process.env.LOCALE || 'fr-FR',
+        httpCredentials: {
+            username: process.env.HTTP_CRED_USERNAME || '',
+            password: process.env.HTTP_CRED_PASSWORD || '',
+        }
     },
 };
 GlobalVars.device = {
