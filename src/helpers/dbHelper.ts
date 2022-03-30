@@ -3,20 +3,25 @@ import * as mysql from 'mysql2/promise';
 import {GlobalVars} from './globalVars';
 
 class DbHelper {
-  private connection: Pool;
-  constructor() {
-    // Create connexion
-    this.connection = mysql.createPool(GlobalVars.db);
+  // functions
+  /**
+   * Create a pool
+   * @param db
+   */
+  createPool(db = GlobalVars.db) {
+    return mysql.createPool(db);
   }
 
-  // functions
   /**
    * Execute an sql query
    * @param query {string} Query to execute
    * @returns {Query}
    */
-  executeQuery(query: string) {
-    return this.connection.execute(query);
+  async executeQuery(query: string) {
+    const connection = await this.createPool();
+    const results = await connection.execute(query);
+    await this.destroyConnection(connection);
+    return results;
   }
 
   /**
@@ -80,8 +85,8 @@ class DbHelper {
    * Destroy sql connection
    * @return {Promise<void>}
    */
-  async destroyConnection(): Promise<void> {
-    await this.connection.end();
+  async destroyConnection(connection: Pool): Promise<void> {
+    await connection.end();
   }
 }
 const dbHelper = new DbHelper();
