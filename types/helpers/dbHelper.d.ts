@@ -1,7 +1,16 @@
+import type { Pool } from 'mysql2/promise';
 import * as mysql from 'mysql2/promise';
 declare class DbHelper {
-    private connection;
-    constructor();
+    /**
+     * Create a pool
+     * @param db
+     */
+    createPool(db?: {
+        host: string;
+        user: string;
+        password: string;
+        database: string;
+    }): Pool;
     /**
      * Execute an sql query
      * @param query {string} Query to execute
@@ -40,7 +49,7 @@ declare class DbHelper {
      * Destroy sql connection
      * @return {Promise<void>}
      */
-    destroyConnection(): Promise<void>;
+    destroyConnection(connection: Pool): Promise<void>;
 }
 declare const dbHelper: DbHelper;
 export { dbHelper };

@@ -13,18 +13,26 @@ exports.dbHelper = void 0;
 const mysql = require("mysql2/promise");
 const globalVars_1 = require("./globalVars");
 class DbHelper {
-    constructor() {
-        // Create connexion
-        this.connection = mysql.createPool(globalVars_1.GlobalVars.db);
-    }
     // functions
+    /**
+     * Create a pool
+     * @param db
+     */
+    createPool(db = globalVars_1.GlobalVars.db) {
+        return mysql.createPool(db);
+    }
     /**
      * Execute an sql query
      * @param query {string} Query to execute
      * @returns {Query}
      */
     executeQuery(query) {
-        return this.connection.execute(query);
+        return __awaiter(this, void 0, void 0, function* () {
+            const connection = yield this.createPool();
+            const results = yield connection.execute(query);
+            yield this.destroyConnection(connection);
+            return results;
+        });
     }
     /**
      * Get query results
@@ -78,9 +86,9 @@ class DbHelper {
      * Destroy sql connection
      * @return {Promise<void>}
      */
-    destroyConnection() {
+    destroyConnection(connection) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.connection.end();
+            yield connection.end();
         });
     }
 }
