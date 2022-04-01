@@ -1,4 +1,4 @@
-import type { BrowserContext, Page, ElementHandle, JSHandle } from 'playwright';
+import type { BrowserContext, ElementHandle, JSHandle, Page } from 'playwright';
 /**
  * Parent page: Page, contains functions that can be used in every page (BO, FO ...)
  * @class
@@ -243,4 +243,28 @@ export declare class CommonPage {
      * @returns {Promise<string|null>}
      */
     clickAndWaitForDownload(page: Page, selector: string, targetBlank?: boolean): Promise<string | null>;
+    /**
+     * Get bounding rect
+     * @param page {Page} Browser tab
+     * @param selector {string} Selector to get bounding rect from
+     * @returns {Promise<DOMRect|undefined>}
+     */
+    getBoundingClientRect(page: Page, selector: string): Promise<DOMRect | undefined>;
+    /**
+     * Get document client size
+     * @param page {Page} Browser tab
+     * @returns {Promise<{ vw: number; vh: number }>}
+     */
+    getDocumentClientSize(page: Page): Promise<{
+        vw: number;
+        vh: number;
+    }>;
+    /**
+     *
+     * Check if an element is visible in viewport after a page scroll
+     * @param page {Page} Browser tab
+     * @param selector {string} Selector to check visibility
+     * @returns {Promise<boolean>} True if selector visible in viewport and False if not
+     */
+    isElementVisibleAfterScroll(page: Page, selector: string): Promise<boolean>;
 }
