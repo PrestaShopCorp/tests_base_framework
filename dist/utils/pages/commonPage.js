@@ -450,19 +450,21 @@ class CommonPage {
      * Check if an element is visible in viewport after a page scroll
      * @param page {Page} Browser tab
      * @param selector {string} Selector to check visibility
-     * @returns {boolean} True if selector visible in viewport and False if not
+     * @returns {Promise<boolean>} True if selector visible in viewport and False if not
      */
     isElementVisibleAfterScroll(page, selector) {
-        const element = document.querySelector(selector);
-        if (element) {
-            const rect = element.getBoundingClientRect();
-            if (rect.top >= 0 && rect.left >= 0) {
-                const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-                const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-                return rect.right <= vw && rect.bottom <= vh;
+        return page.evaluate((selector) => {
+            const element = document.querySelector(selector);
+            if (element) {
+                const rect = element.getBoundingClientRect();
+                if (rect.top >= 0 && rect.left >= 0) {
+                    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+                    const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+                    return rect.right <= vw && rect.bottom <= vh;
+                }
             }
-        }
-        return false;
+            return false;
+        }, selector);
     }
 }
 exports.CommonPage = CommonPage;
