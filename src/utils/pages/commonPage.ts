@@ -519,28 +519,51 @@ export class CommonPage {
   }
 
   /**
+   * Get bounding rect
+   * @param page {Page} Browser tab
+   * @param selector {string} Selector to get bounding rect from
+   * @returns {Promise<DOMRect|undefined>}
+   */
+  getBoundingClientRect(
+    page: Page,
+    selector: string,
+  ): Promise<DOMRect|undefined> {
+    return page.evaluate(() => document.querySelector(selector)?.getBoundingClientRect());
+  }
+
+  /**
+   * Get document client size
+   * @param page {Page} Browser tab
+   * @returns Promise<{ vw: number; vh: number }>
+   */
+  getDocumentClientSize(
+    page: Page,
+  ): Promise<{ vw: number; vh: number }> {
+    return page.evaluate(() => {
+      return {
+        vw: Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0),
+        vh: Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0),
+      }
+    })
+  }
+
+  /**
    *
    * Check if an element is visible in viewport after a page scroll
    * @param page {Page} Browser tab
    * @param selector {string} Selector to check visibility
    * @returns {Promise<boolean>} True if selector visible in viewport and False if not
    */
-  isElementVisibleAfterScroll(
+  async isElementVisibleAfterScroll(
       page: Page,
-      selector: string
+      selector: string,
   ): Promise<boolean> {
-    return page.evaluate((selector: string) => {
-      const element = document.querySelector(selector);
-      if (element) {
-        const rect = element.getBoundingClientRect();
-        if (rect.top >= 0 && rect.left >= 0) {
-          const vw: number = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-          const vh: number = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-          return rect.right <= vw && rect.bottom <= vh;
-        }
-      }
-      return false;
-    }, selector);
+    const rect = await this.getBoundingClientRect(page, selector);
+    if (rect!.top >= 0 && rect!.left >= 0) {
+      const documentSize = await this.getDocumentClientSize(page);
+      return (rect!.right <= documentSize.vw && rect!.bottom <= documentSize.vh);
+    }
+
+    return false;
   }
 }
-exports.CommonPage = CommonPage;
