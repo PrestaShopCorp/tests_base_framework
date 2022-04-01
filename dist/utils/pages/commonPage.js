@@ -446,6 +446,28 @@ class CommonPage {
         });
     }
     /**
+     * Get bounding rect
+     * @param page {Page} Browser tab
+     * @param selector {string} Selector to get bounding rect from
+     * @returns {Promise<DOMRect|undefined>}
+     */
+    getBoundingClientRect(page, selector) {
+        return page.evaluate(() => { var _a; return (_a = document.querySelector(selector)) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect(); });
+    }
+    /**
+     * Get document client size
+     * @param page {Page} Browser tab
+     * @returns {Promise<{ vw: number; vh: number }>}
+     */
+    getDocumentClientSize(page) {
+        return page.evaluate(() => {
+            return {
+                vw: Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0),
+                vh: Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0),
+            };
+        });
+    }
+    /**
      *
      * Check if an element is visible in viewport after a page scroll
      * @param page {Page} Browser tab
@@ -453,19 +475,14 @@ class CommonPage {
      * @returns {Promise<boolean>} True if selector visible in viewport and False if not
      */
     isElementVisibleAfterScroll(page, selector) {
-        return page.evaluate((selector) => {
-            const element = document.querySelector(selector);
-            if (element) {
-                const rect = element.getBoundingClientRect();
-                if (rect.top >= 0 && rect.left >= 0) {
-                    const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-                    const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-                    return rect.right <= vw && rect.bottom <= vh;
-                }
+        return __awaiter(this, void 0, void 0, function* () {
+            const rect = yield this.getBoundingClientRect(page, selector);
+            if (rect.top >= 0 && rect.left >= 0) {
+                const documentSize = yield this.getDocumentClientSize(page);
+                return (rect.right <= documentSize.vw && rect.bottom <= documentSize.vh);
             }
             return false;
-        }, selector);
+        });
     }
 }
-exports.CommonPage = CommonPage;
 exports.CommonPage = CommonPage;
