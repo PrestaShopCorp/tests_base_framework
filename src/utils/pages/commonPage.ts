@@ -534,7 +534,7 @@ export class CommonPage {
   /**
    * Get document client size
    * @param page {Page} Browser tab
-   * @returns Promise<{ vw: number; vh: number }>
+   * @returns {Promise<{ vw: number; vh: number }>}
    */
   getDocumentClientSize(
     page: Page,
