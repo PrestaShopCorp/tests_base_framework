@@ -1,4 +1,4 @@
-import type { BrowserContext, Page, ElementHandle, JSHandle } from 'playwright';
+import type { BrowserContext, ElementHandle, JSHandle, Page } from 'playwright';
 /**
  * Parent page: Page, contains functions that can be used in every page (BO, FO ...)
  * @class
@@ -248,7 +248,7 @@ export declare class CommonPage {
      * Check if an element is visible in viewport after a page scroll
      * @param page {Page} Browser tab
      * @param selector {string} Selector to check visibility
-     * Return True if selector visible in viewport and False if not
+     * @returns {Promise<boolean>} True if selector visible in viewport and False if not
      */
     isElementVisibleAfterScroll(page: Page, selector: string): Promise<boolean>;
 }

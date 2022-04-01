@@ -1,4 +1,4 @@
-import type {BrowserContext, Page, ElementHandle, JSHandle} from 'playwright';
+import type {BrowserContext, ElementHandle, JSHandle, Page} from 'playwright';
 
 /**
  * Parent page: Page, contains functions that can be used in every page (BO, FO ...)
@@ -523,15 +523,13 @@ export class CommonPage {
    * Check if an element is visible in viewport after a page scroll
    * @param page {Page} Browser tab
    * @param selector {string} Selector to check visibility
-   * Return True if selector visible in viewport and False if not
+   * @returns {Promise<boolean>} True if selector visible in viewport and False if not
    */
-  async isElementVisibleAfterScroll(
+  isElementVisibleAfterScroll(
       page: Page,
       selector: string
   ): Promise<boolean> {
-    // @ts-ignore
-    let isVisible: boolean = await page.evaluate((selector: string) => {
-      isVisible = false;
+    return page.evaluate((selector: string) => {
       const element = document.querySelector(selector);
       if (element) {
         const rect = element.getBoundingClientRect();
@@ -539,11 +537,11 @@ export class CommonPage {
           const vw: number = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
           const vh: number = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
           if (rect.right <= vw && rect.bottom <= vh) {
-            isVisible = true;
+            return true;
           }
         }
       }
+      return false;
     }, selector);
-    return isVisible;
   }
 }
