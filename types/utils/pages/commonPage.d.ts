@@ -243,4 +243,12 @@ export declare class CommonPage {
      * @returns {Promise<string|null>}
      */
     clickAndWaitForDownload(page: Page, selector: string, targetBlank?: boolean): Promise<string | null>;
+    /**
+     *
+     * Check if an element is visible in viewport after a page scroll
+     * @param page {Page} Browser tab
+     * @param selector {string} Selector to check visibility
+     * Return true if selector visible in viewport and false if not
+     */
+    isElementVisibleAfterScroll(page: Page, selector: string): Promise<void>;
 }

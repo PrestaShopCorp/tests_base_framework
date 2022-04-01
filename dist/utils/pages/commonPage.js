@@ -445,5 +445,31 @@ class CommonPage {
             return download.path();
         });
     }
+    /**
+     *
+     * Check if an element is visible in viewport after a page scroll
+     * @param page {Page} Browser tab
+     * @param selector {string} Selector to check visibility
+     * Return true if selector visible in viewport and false if not
+     */
+    isElementVisibleAfterScroll(page, selector) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let isVisible = yield page.evaluate((selector) => {
+                isVisible = false;
+                const element = document.querySelector(selector);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top >= 0 && rect.left >= 0) {
+                        const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+                        const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+                        if (rect.right <= vw && rect.bottom <= vh) {
+                            isVisible = true;
+                        }
+                    }
+                }
+                return isVisible;
+            }, selector);
+        });
+    }
 }
 exports.CommonPage = CommonPage;
