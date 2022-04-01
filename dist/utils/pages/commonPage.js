@@ -450,10 +450,11 @@ class CommonPage {
      * Check if an element is visible in viewport after a page scroll
      * @param page {Page} Browser tab
      * @param selector {string} Selector to check visibility
-     * Return true if selector visible in viewport and false if not
+     * Return True if selector visible in viewport and False if not
      */
     isElementVisibleAfterScroll(page, selector) {
         return __awaiter(this, void 0, void 0, function* () {
+            // @ts-ignore
             let isVisible = yield page.evaluate((selector) => {
                 isVisible = false;
                 const element = document.querySelector(selector);
@@ -467,8 +468,8 @@ class CommonPage {
                         }
                     }
                 }
-                return isVisible;
             }, selector);
+            return isVisible;
         });
     }
 }

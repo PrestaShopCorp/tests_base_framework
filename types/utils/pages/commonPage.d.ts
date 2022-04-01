@@ -248,7 +248,7 @@ export declare class CommonPage {
      * Check if an element is visible in viewport after a page scroll
      * @param page {Page} Browser tab
      * @param selector {string} Selector to check visibility
-     * Return true if selector visible in viewport and false if not
+     * Return True if selector visible in viewport and False if not
      */
-    isElementVisibleAfterScroll(page: Page, selector: string): Promise<void>;
+    isElementVisibleAfterScroll(page: Page, selector: string): Promise<boolean>;
 }
