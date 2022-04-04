@@ -1,4 +1,4 @@
-import type {BrowserContext, Page, ElementHandle, JSHandle} from 'playwright';
+import type {BrowserContext, ElementHandle, JSHandle, Page} from 'playwright';
 
 /**
  * Parent page: Page, contains functions that can be used in every page (BO, FO ...)
@@ -516,5 +516,54 @@ export class CommonPage {
     ]);
 
     return download.path();
+  }
+
+  /**
+   * Get bounding rect
+   * @param page {Page} Browser tab
+   * @param selector {string} Selector to get bounding rect from
+   * @returns {Promise<DOMRect|undefined>}
+   */
+  getBoundingClientRect(
+    page: Page,
+    selector: string,
+  ): Promise<DOMRect|undefined> {
+    return page.evaluate(() => document.querySelector(selector)?.getBoundingClientRect());
+  }
+
+  /**
+   * Get document client size
+   * @param page {Page} Browser tab
+   * @returns {Promise<{ vw: number; vh: number }>}
+   */
+  getDocumentClientSize(
+    page: Page,
+  ): Promise<{ vw: number; vh: number }> {
+    return page.evaluate(() => {
+      return {
+        vw: Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0),
+        vh: Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0),
+      }
+    })
+  }
+
+  /**
+   *
+   * Check if an element is visible in viewport after a page scroll
+   * @param page {Page} Browser tab
+   * @param selector {string} Selector to check visibility
+   * @returns {Promise<boolean>} True if selector visible in viewport and False if not
+   */
+  async isElementVisibleAfterScroll(
+      page: Page,
+      selector: string,
+  ): Promise<boolean> {
+    const rect = await this.getBoundingClientRect(page, selector);
+    if (rect!.top >= 0 && rect!.left >= 0) {
+      const documentSize = await this.getDocumentClientSize(page);
+      return (rect!.right <= documentSize.vw && rect!.bottom <= documentSize.vh);
+    }
+
+    return false;
   }
 }
