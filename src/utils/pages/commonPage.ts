@@ -528,7 +528,10 @@ export class CommonPage {
     page: Page,
     selector: string,
   ): Promise<DOMRect|undefined> {
-    return page.evaluate(() => document.querySelector(selector)?.getBoundingClientRect());
+    return page.evaluate(
+      (sl) => document.querySelector(sl)?.getBoundingClientRect(),
+      selector,
+    );
   }
 
   /**

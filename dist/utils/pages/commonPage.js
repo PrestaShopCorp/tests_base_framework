@@ -452,7 +452,7 @@ class CommonPage {
      * @returns {Promise<DOMRect|undefined>}
      */
     getBoundingClientRect(page, selector) {
-        return page.evaluate(() => { var _a; return (_a = document.querySelector(selector)) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect(); });
+        return page.evaluate((sl) => { var _a; return (_a = document.querySelector(sl)) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect(); }, selector);
     }
     /**
      * Get document client size
