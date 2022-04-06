@@ -452,7 +452,7 @@ class CommonPage {
      * @returns {Promise<DOMRect|undefined>}
      */
     getBoundingClientRect(page, selector) {
-        return page.evaluate((sl) => { var _a; return (_a = document.querySelector(sl)) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect(); }, selector);
+        return page.evaluate((sl) => { var _a; return (_a = document.querySelector(sl)) === null || _a === void 0 ? void 0 : _a.getBoundingClientRect().toJSON(); }, selector);
     }
     /**
      * Get document client size
@@ -468,7 +468,6 @@ class CommonPage {
         });
     }
     /**
-     *
      * Check if an element is visible in viewport after a page scroll
      * @param page {Page} Browser tab
      * @param selector {string} Selector to check visibility
