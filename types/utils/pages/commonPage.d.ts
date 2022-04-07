@@ -260,7 +260,6 @@ export declare class CommonPage {
         vh: number;
     }>;
     /**
-     *
      * Check if an element is visible in viewport after a page scroll
      * @param page {Page} Browser tab
      * @param selector {string} Selector to check visibility
