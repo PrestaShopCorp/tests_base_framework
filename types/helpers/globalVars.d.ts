@@ -67,4 +67,8 @@ export declare class GlobalVars {
         password: string;
         database: string;
     };
+    static screenshots: {
+        active: string | boolean;
+        folder: string;
+    };
 }
