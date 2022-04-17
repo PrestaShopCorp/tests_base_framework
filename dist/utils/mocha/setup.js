@@ -11,6 +11,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mochaHooks = void 0;
 const browserHelper_1 = require("../../helpers/browserHelper");
+let failPosition = 1;
+const screenshotsFolder = process.env.SCREENSHOTS_FOLDERS = './screenshots';
 exports.mochaHooks = {
     /**
      * Create unique browser for all mocha run
@@ -18,6 +20,19 @@ exports.mochaHooks = {
     beforeAll: function () {
         return __awaiter(this, void 0, void 0, function* () {
             this.browser = yield (0, browserHelper_1.createBrowser)();
+        });
+    },
+    afterEach: function () {
+        return __awaiter(this, void 0, void 0, function* () {
+            // Get last context used
+            const context = yield (0, browserHelper_1.getBrowserContext)(this.browser);
+            // Get last used tab
+            const page = yield (0, browserHelper_1.getTab)(context);
+            yield page.screenshot({
+                path: `${screenshotsFolder}/${failPosition}.png`,
+                fullPage: true,
+            });
+            failPosition++;
         });
     },
     /**

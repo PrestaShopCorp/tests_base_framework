@@ -24,6 +24,13 @@ declare function createContext(browser: Browser): Promise<BrowserContext>;
  */
 declare function closeContext(context: BrowserContext): Promise<void>;
 /**
+ * Get browser context by position
+ * @param browser {Browser} Browser launched for tests
+ * @param position {number} Position of the context (-1 for the last context)
+ * @returns {Promise<BrowserContext>}
+ */
+declare function getBrowserContext(browser: Browser, position?: number): Promise<BrowserContext>;
+/**
  * Add new tab on the browser
  * @param context {BrowserContext} Browser context created above
  * @returns {Promise<Page>}
@@ -35,6 +42,13 @@ declare function addTab(context: BrowserContext): Promise<Page>;
  * @returns {Promise<void>}
  */
 declare function closeTab(tab: Page): Promise<void>;
+/**
+ * Get Browser tab from position
+ * @param context {BrowserContext} Context to get tab from
+ * @param position {number} Position of the tab (-1 for last tab)
+ * @returns {Promise<Page>}
+ */
+declare function getTab(context: BrowserContext, position?: number): Promise<Page>;
 /**
  * Add route to the browser tab or to the browser context
  * @param browserElement {Page|BrowserContext}
@@ -62,5 +76,5 @@ declare function addInitScript(browserElement: Page | BrowserContext, script: Fu
     path?: string;
     content?: string;
 }, args?: Serializable): Promise<void>;
-export { createBrowser, closeBrowser, createContext, closeContext, addTab, closeTab, addInitScript, addRoute, deleteRoute };
+export { createBrowser, closeBrowser, createContext, closeContext, getBrowserContext, addTab, closeTab, getTab, addInitScript, addRoute, deleteRoute };
 export * as browserHelper from './browserHelper';
