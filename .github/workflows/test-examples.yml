@@ -5,7 +5,9 @@ on:
   pull_request:
 
 env:
-  URL: 'https://addons.prestashop.com/'
+  URL: 'https://addons-qa.prestashop.com/'
+  HTTP_CRED_USERNAME: '${{ secrets.HTTP_CRED_USERNAME }}'
+  HTTP_CRED_PASSWORD: '${{ secrets.HTTP_CRED_PASSWORD }}'
 
 jobs:
 
