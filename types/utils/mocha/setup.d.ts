@@ -4,6 +4,10 @@ export declare const mochaHooks: {
      */
     beforeAll: () => Promise<void>;
     /**
+     * Take screenshot after fail
+     */
+    afterEach: () => Promise<void>;
+    /**
      * Close browser after finish the run
      */
     afterAll: () => Promise<void>;

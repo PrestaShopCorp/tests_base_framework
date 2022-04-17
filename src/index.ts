@@ -11,8 +11,10 @@ export {
   closeBrowser,
   createContext,
   closeContext,
+  getBrowserContext,
   addTab,
   closeTab,
+  getTab,
   addInitScript,
   addRoute,
   deleteRoute

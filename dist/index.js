@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.mochaHooks = exports.CommonPage = exports.browserHelper = exports.deleteRoute = exports.addRoute = exports.addInitScript = exports.closeTab = exports.addTab = exports.closeContext = exports.createContext = exports.closeBrowser = exports.createBrowser = exports.dbHelper = exports.GlobalVars = void 0;
+exports.mochaHooks = exports.CommonPage = exports.browserHelper = exports.deleteRoute = exports.addRoute = exports.addInitScript = exports.getTab = exports.closeTab = exports.addTab = exports.getBrowserContext = exports.closeContext = exports.createContext = exports.closeBrowser = exports.createBrowser = exports.dbHelper = exports.GlobalVars = void 0;
 // Export helpers
 /* Export GlobalVars */
 var globalVars_1 = require("./helpers/globalVars");
@@ -14,8 +14,10 @@ Object.defineProperty(exports, "createBrowser", { enumerable: true, get: functio
 Object.defineProperty(exports, "closeBrowser", { enumerable: true, get: function () { return browserHelper_1.closeBrowser; } });
 Object.defineProperty(exports, "createContext", { enumerable: true, get: function () { return browserHelper_1.createContext; } });
 Object.defineProperty(exports, "closeContext", { enumerable: true, get: function () { return browserHelper_1.closeContext; } });
+Object.defineProperty(exports, "getBrowserContext", { enumerable: true, get: function () { return browserHelper_1.getBrowserContext; } });
 Object.defineProperty(exports, "addTab", { enumerable: true, get: function () { return browserHelper_1.addTab; } });
 Object.defineProperty(exports, "closeTab", { enumerable: true, get: function () { return browserHelper_1.closeTab; } });
+Object.defineProperty(exports, "getTab", { enumerable: true, get: function () { return browserHelper_1.getTab; } });
 Object.defineProperty(exports, "addInitScript", { enumerable: true, get: function () { return browserHelper_1.addInitScript; } });
 Object.defineProperty(exports, "addRoute", { enumerable: true, get: function () { return browserHelper_1.addRoute; } });
 Object.defineProperty(exports, "deleteRoute", { enumerable: true, get: function () { return browserHelper_1.deleteRoute; } });

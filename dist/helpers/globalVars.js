@@ -78,3 +78,8 @@ GlobalVars.db = {
     password: process.env.DB_PASSWORD || '',
     database: process.env.DB_NAME || 'mydatabase',
 };
+/* Screenshots activation */
+GlobalVars.screenshots = {
+    active: process.env.SCREENSHOTS_ON || true,
+    folder: process.env.SCREENSHOTS_FOLDER || './screenshots',
+};

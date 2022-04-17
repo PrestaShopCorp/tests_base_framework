@@ -9,9 +9,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.browserHelper = exports.deleteRoute = exports.addRoute = exports.addInitScript = exports.closeTab = exports.addTab = exports.closeContext = exports.createContext = exports.closeBrowser = exports.createBrowser = void 0;
+exports.browserHelper = exports.deleteRoute = exports.addRoute = exports.addInitScript = exports.getTab = exports.closeTab = exports.addTab = exports.getBrowserContext = exports.closeContext = exports.createContext = exports.closeBrowser = exports.createBrowser = void 0;
 const playwright = require("playwright");
 const globalVars_1 = require("./globalVars");
+/* Browser functions*/
 /**
  * Create browser with options
  * @returns {Promise<Browser|null>}
@@ -53,6 +54,7 @@ function closeBrowser(browser) {
     });
 }
 exports.closeBrowser = closeBrowser;
+/* Context functions */
 /**
  * Create browser context with viewport and language
  * @param browser {Browser} Browser created with function above
@@ -77,6 +79,29 @@ function closeContext(context) {
 }
 exports.closeContext = closeContext;
 /**
+ * Get browser context by position
+ * @param browser {Browser} Browser launched for tests
+ * @param position {number} Position of the context (-1 for the last context)
+ * @returns {Promise<BrowserContext>}
+ */
+function getBrowserContext(browser, position = -1) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const contexts = browser.contexts();
+        if (!contexts || contexts.length === 0) {
+            throw new Error('0 Context was found for this browser');
+        }
+        else if (position < -1 || position >= contexts.length) {
+            throw new Error(`Position ${position} is wrong to get the context`);
+        }
+        else if (position === -1) {
+            return contexts[contexts.length - 1];
+        }
+        return contexts[position];
+    });
+}
+exports.getBrowserContext = getBrowserContext;
+/* Tab functions */
+/**
  * Add new tab on the browser
  * @param context {BrowserContext} Browser context created above
  * @returns {Promise<Page>}
@@ -98,6 +123,29 @@ function closeTab(tab) {
     });
 }
 exports.closeTab = closeTab;
+/**
+ * Get Browser tab from position
+ * @param context {BrowserContext} Context to get tab from
+ * @param position {number} Position of the tab (-1 for last tab)
+ * @returns {Promise<Page>}
+ */
+function getTab(context, position = -1) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const tabs = context.pages();
+        if (!tabs || tabs.length === 0) {
+            throw new Error('0 Page was found for this context');
+        }
+        else if (position < -1 || position >= tabs.length) {
+            throw new Error(`Position ${position} is wrong to get the browser tab`);
+        }
+        else if (position === -1) {
+            return tabs[tabs.length - 1];
+        }
+        return tabs[position];
+    });
+}
+exports.getTab = getTab;
+/* Routes functions */
 /**
  * Add route to the browser tab or to the browser context
  * @param browserElement {Page|BrowserContext}
