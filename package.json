@@ -21,11 +21,7 @@
     "access": "public"
   },
   "_moduleAliases": {
-    "@root": ".",
-    "@helpers": "src/helpers",
-    "@examples": "examples",
-    "@utils": "src/utils",
-    "@pages": "src/utils/pages"
+    "~": "."
   },
   "keywords": [
     "prestashop",
@@ -46,6 +42,8 @@
     "playwright": "1.13.1",
     "ts-loader": "^9.2.6",
     "ts-node": "^10.4.0",
+    "tsconfig-paths": "^3.14.1",
+    "tscpaths": "0.0.9",
     "typescript": "^4.4.4"
   },
   "devDependencies": {

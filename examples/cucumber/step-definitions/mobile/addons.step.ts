@@ -1,14 +1,14 @@
 import 'module-alias/register';
 
 import {expect} from 'chai';
-import {GlobalVars} from '@helpers/globalVars';
+import {GlobalVars} from '~/src';
 
 // Import cucumber
 import {Given, When, Then} from '@cucumber/cucumber';
 
 // Import pages
-import {home as homePage} from '@examples/pages/mobile/home';
-import {firstVisit as firstVisitPage} from '@examples/pages/mobile/firstVisit';
+import {home as homePage} from '~/examples/pages/mobile/home';
+import {firstVisit as firstVisitPage} from '~/examples/pages/mobile/firstVisit';
 
 Given('I go to url addons url', async function () {
   await homePage.goTo(this.browserTab, GlobalVars.url!);

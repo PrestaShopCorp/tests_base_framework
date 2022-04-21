@@ -1,5 +1,5 @@
 import 'module-alias/register';
-import {CommonPage} from '@pages/commonPage';
+import {CommonPage} from '~/src';
 
 class FirstVisit extends CommonPage {
   public pageFrTitle: string;

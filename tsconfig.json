@@ -20,11 +20,7 @@
     "baseUrl": "./",
     "outDir": "./dist",
     "paths": {
-      "@root/*": ["./*"],
-      "@helpers/*": ["src/helpers/*"],
-      "@examples/*": ["examples/*"],
-      "@utils/*": ["src/utils/*"],
-      "@pages/*": ["src/utils/pages/*"],
+      "~/*": ["./*"],
       "*": ["*", "node_modules/playwright/types/*"]
     },
     "typeRoots": [
