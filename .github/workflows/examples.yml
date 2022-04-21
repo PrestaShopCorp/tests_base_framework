@@ -1,4 +1,4 @@
-name: Tests examples
+name: Examples
 
 on:
   push:
@@ -8,11 +8,12 @@ env:
   URL: 'https://addons-qa.prestashop.com/'
   HTTP_CRED_USERNAME: '${{ secrets.HTTP_CRED_USERNAME }}'
   HTTP_CRED_PASSWORD: '${{ secrets.HTTP_CRED_PASSWORD }}'
+  NODE_VERSION: 14.x
 
 jobs:
 
   mocha-desktop-example:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     name: Mocha desktop example
 
     steps:
@@ -21,7 +22,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
         run: npm install
@@ -39,7 +40,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '15.x'
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
         run: npm install
@@ -57,7 +58,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '15.x'
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
         run: npm install
@@ -78,7 +79,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '15.x'
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
         run: npm install
