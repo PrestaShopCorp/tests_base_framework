@@ -2,7 +2,13 @@ name: Examples
 
 on:
   push:
+    branches-ignore:
+      - dev
+      - master
   pull_request:
+    branches:
+      - dev
+      - master
 
 env:
   URL: 'https://addons-qa.prestashop.com/'
