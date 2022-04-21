@@ -32,6 +32,7 @@ jobs:
         run: npm run test:mocha:desktop
 
       - uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
         with:
           name: mocha-desk
           path: "./screenshots"
@@ -55,6 +56,7 @@ jobs:
         run: npm run test:cucumber:desktop
 
       - uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
         with:
           name: cucumber-desk
           path: "./screenshots"
@@ -81,6 +83,7 @@ jobs:
           DEVICE: 'Pixel 2'
 
       - uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
         with:
           name: mocha-mobile
           path: "./screenshots"
@@ -107,6 +110,7 @@ jobs:
           DEVICE: 'Pixel 2'
 
       - uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
         with:
           name: cucumber-mobile
           path: "./screenshots"
