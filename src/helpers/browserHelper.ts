@@ -1,5 +1,4 @@
 import type {Browser, BrowserContext, Page, Route, Request} from 'playwright';
-import type {Serializable} from 'playwright/types/structs';
 
 import * as playwright from 'playwright';
 import {GlobalVars} from './globalVars';
@@ -169,13 +168,13 @@ async function deleteRoute(
  * Add init script to the browser tab or to the browser context
  * @param browserElement {Page|BrowserContext}
  * @param script {Function|string|{path: ?string, content: ?string}}
- * @param args {Serializable}
+ * @param args {never}
  * @return {Promise<void>}
  */
 async function addInitScript(
   browserElement : Page|BrowserContext,
   script: Function|string|{path?: string, content?: string},
-  args?: Serializable,
+  args: never,
 ):Promise<void> {
   await browserElement.addInitScript(script, args);
 }
