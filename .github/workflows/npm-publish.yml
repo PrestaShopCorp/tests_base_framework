@@ -4,6 +4,9 @@ on:
   push:
     tags:
       - '*'
+
+env:
+  NODE_VERSION: 16.x
 jobs:
   npm-publish:
     name: NPM Publish
@@ -14,11 +17,11 @@ jobs:
         run: echo ::set-output name=TAG::$(echo $GITHUB_REF | cut -d / -f 3)
 
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
+          node-version: ${{ env.NODE_VERSION }}
           registry-url: https://registry.npmjs.org/
 
       - name: Install dependencies
