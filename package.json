@@ -21,11 +21,7 @@
     "access": "public"
   },
   "_moduleAliases": {
-    "@root": ".",
-    "@helpers": "src/helpers",
-    "@examples": "examples",
-    "@utils": "src/utils",
-    "@pages": "src/utils/pages"
+    "~": "."
   },
   "keywords": [
     "prestashop",

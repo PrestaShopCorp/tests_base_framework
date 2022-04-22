@@ -4,12 +4,12 @@ import {expect} from 'chai';
 import type {BrowserContext, Page} from 'playwright';
 
 // Import browser helper
-import {browserHelper} from '@helpers/browserHelper';
-import {GlobalVars} from '@helpers/globalVars';
+import {browserHelper} from '~/src';
+import {GlobalVars} from '~/src';
 
 // Import pages
-import {home as homePage} from '@examples/pages/mobile/home';
-import {firstVisit as firstVisitPage} from '@examples/pages/mobile/firstVisit';
+import {home as homePage} from '~/examples/pages/mobile/home';
+import {firstVisit as firstVisitPage} from '~/examples/pages/mobile/firstVisit';
 
 // Browser vars
 let browserContext: BrowserContext;

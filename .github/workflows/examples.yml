@@ -1,33 +1,47 @@
-name: Tests examples
+name: Examples
 
 on:
   push:
+    branches-ignore:
+      - dev
+      - master
   pull_request:
+    branches:
+      - dev
+      - master
 
 env:
   URL: 'https://addons-qa.prestashop.com/'
   HTTP_CRED_USERNAME: '${{ secrets.HTTP_CRED_USERNAME }}'
   HTTP_CRED_PASSWORD: '${{ secrets.HTTP_CRED_PASSWORD }}'
+  NODE_VERSION: 14.x
 
 jobs:
 
   mocha-desktop-example:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     name: Mocha desktop example
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14.x'
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
 
       - name: Run tests
         run: npm run test:mocha:desktop
+
+      - uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
+        with:
+          name: mocha-desk
+          path: "./screenshots"
 
   cucumber-desktop-example:
     runs-on: ubuntu-18.04
@@ -39,13 +53,19 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '15.x'
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
         run: npm install
 
       - name: Run tests
         run: npm run test:cucumber:desktop
+
+      - uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
+        with:
+          name: cucumber-desk
+          path: "./screenshots"
 
   mocha-mobile-example:
     runs-on: ubuntu-18.04
@@ -57,7 +77,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '15.x'
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
         run: npm install
@@ -67,6 +87,12 @@ jobs:
         env:
           PLATFORM: 'mobile'
           DEVICE: 'Pixel 2'
+
+      - uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
+        with:
+          name: mocha-mobile
+          path: "./screenshots"
 
   cucumber-mobile-example:
     runs-on: ubuntu-18.04
@@ -78,7 +104,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v2
         with:
-          node-version: '15.x'
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
         run: npm install
@@ -88,3 +114,9 @@ jobs:
         env:
           PLATFORM: 'mobile'
           DEVICE: 'Pixel 2'
+
+      - uses: actions/upload-artifact@v3
+        if: ${{ failure() }}
+        with:
+          name: cucumber-mobile
+          path: "./screenshots"
