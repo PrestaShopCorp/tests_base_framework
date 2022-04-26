@@ -145,7 +145,7 @@ class CommonPage {
      * @param timeout {number} Time to wait on milliseconds before throwing an error
      * @returns {Promise<boolean>} True if visible, false if not
      */
-    elementVisible(page, selector, timeout = 10) {
+    elementVisible(page, selector, timeout = 10000) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.waitForVisibleSelector(page, selector, timeout);
@@ -163,7 +163,7 @@ class CommonPage {
      * @param timeout {number} Time to wait on milliseconds before throwing an error
      * @returns {Promise<boolean>} True if not visible, false if visible
      */
-    elementNotVisible(page, selector, timeout = 10) {
+    elementNotVisible(page, selector, timeout = 10000) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.waitForHiddenSelector(page, selector, timeout);

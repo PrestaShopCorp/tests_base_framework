@@ -162,7 +162,7 @@ export class CommonPage {
   async elementVisible(
     page: Page,
     selector: string,
-    timeout = 10
+    timeout = 10000
   ): Promise<boolean> {
     try {
       await this.waitForVisibleSelector(page, selector, timeout);
@@ -182,7 +182,7 @@ export class CommonPage {
   async elementNotVisible(
     page: Page,
     selector: string,
-    timeout = 10,
+    timeout = 10000,
   ): Promise<boolean> {
     try {
       await this.waitForHiddenSelector(page, selector, timeout);
