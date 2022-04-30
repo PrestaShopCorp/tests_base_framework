@@ -147,13 +147,14 @@ class CommonPage {
      */
     elementVisible(page, selector, timeout = 10000) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield this.waitForVisibleSelector(page, selector, timeout);
-                return true;
+            let found = false;
+            let retries = 0;
+            while (!found && retries < (timeout / 10)) {
+                found = yield page.isVisible(selector);
+                retries++;
+                yield page.waitForTimeout(10);
             }
-            catch (error) {
-                return false;
-            }
+            return found;
         });
     }
     /**
@@ -165,13 +166,14 @@ class CommonPage {
      */
     elementNotVisible(page, selector, timeout = 10000) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield this.waitForHiddenSelector(page, selector, timeout);
-                return true;
+            let retries = 0;
+            let notFound = false;
+            while (!notFound && retries < (timeout / 10)) {
+                notFound = yield page.isHidden(selector);
+                retries++;
+                yield page.waitForTimeout(10);
             }
-            catch (error) {
-                return false;
-            }
+            return notFound;
         });
     }
     /**
@@ -199,7 +201,7 @@ class CommonPage {
      * @param timeout {number} Time to wait on milliseconds before throwing an error
      * @return {Promise<void>}
      */
-    waitForSelectorAndClick(page, selector, timeout = 5000) {
+    waitForSelectorAndClick(page, selector, timeout = 10000) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.waitForVisibleSelector(page, selector, timeout);
             yield page.click(selector);

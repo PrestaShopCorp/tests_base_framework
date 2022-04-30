@@ -162,14 +162,16 @@ export class CommonPage {
   async elementVisible(
     page: Page,
     selector: string,
-    timeout = 10000
+    timeout = 10000,
   ): Promise<boolean> {
-    try {
-      await this.waitForVisibleSelector(page, selector, timeout);
-      return true;
-    } catch (error) {
-      return false;
+    let visible = false;
+    let retries = 0;
+    while (!visible && retries < (timeout/10)) {
+      visible = await page.isVisible(selector);
+      retries++;
+      await page.waitForTimeout(10);
     }
+    return visible;
   }
 
   /**
@@ -184,12 +186,14 @@ export class CommonPage {
     selector: string,
     timeout = 10000,
   ): Promise<boolean> {
-    try {
-      await this.waitForHiddenSelector(page, selector, timeout);
-      return true;
-    } catch (error) {
-      return false;
+    let retries = 0;
+    let notVisible = false;
+    while (!notVisible && retries < (timeout / 10)) {
+      notVisible = await page.isHidden(selector);
+      retries++;
+      await page.waitForTimeout(10);
     }
+    return notVisible;
   }
 
   /**
@@ -225,7 +229,7 @@ export class CommonPage {
   async waitForSelectorAndClick(
     page: Page,
     selector: string,
-    timeout = 5000
+    timeout = 10000
   ):Promise<void> {
     await this.waitForVisibleSelector(page, selector, timeout);
     await page.click(selector);
