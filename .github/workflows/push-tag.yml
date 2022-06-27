@@ -25,7 +25,7 @@ jobs:
 
       - name: Get version from package.json
         id: get_tag
-        run: echo ::set-output name=TAG::$(npm view . version)
+        run: echo ::set-output name=TAG::$(node -p "require('./package.json').version")
 
       - name: Push Tag
         run: |
