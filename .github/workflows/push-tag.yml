@@ -28,6 +28,8 @@ jobs:
         run: echo ::set-output name=TAG::$(node -p "require('./package.json').version")
 
       - name: Push Tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GA_TOKEN }}
         run: |
           tag=${{ steps.get_tag.outputs.TAG }}
           message='New Version ${{ steps.get_tag.outputs.TAG }}'
