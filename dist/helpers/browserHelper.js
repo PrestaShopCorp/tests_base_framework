@@ -176,7 +176,7 @@ exports.deleteRoute = deleteRoute;
  * Add init script to the browser tab or to the browser context
  * @param browserElement {Page|BrowserContext}
  * @param script {Function|string|{path: ?string, content: ?string}}
- * @param args {Serializable}
+ * @param args {never}
  * @return {Promise<void>}
  */
 function addInitScript(browserElement, script, args) {

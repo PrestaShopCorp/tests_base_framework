@@ -1,0 +1,46 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+env:
+  NODE_VERSION: 16.x
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    name: Create New Release on Github
+
+    steps:
+      - name: Get tag
+        id: get_tag
+        run: echo ::set-output name=TAG::$(echo $GITHUB_REF | cut -d / -f 3)
+
+      - name: Changelog
+        uses: scottbrenner/generate-changelog-action@master
+        id: Changelog
+
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Add release
+        uses: actions/create-release@v1
+        id: create_release
+        with:
+          draft: false
+          prerelease: false
+          release_name: "V${{ steps.get_tag.outputs.TAG }}"
+          tag_name: ${{ steps.get_tag.outputs.TAG }}
+          body: |
+            ${{ steps.Changelog.outputs.changelog }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
