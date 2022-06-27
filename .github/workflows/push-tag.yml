@@ -1,0 +1,31 @@
+name: Push Tags
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  NODE_VERSION: 16.x
+
+jobs:
+  push-tag:
+    runs-on: ubuntu-latest
+    name: Create new Git Tag on github
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Get version from package.json
+        id: get_tag
+        run: echo ::set-output name=TAG::$(npm view . version)
+
+      - uses: actions-ecosystem/action-push-tag@v1
+        with:
+          tag: ${{ steps.get_tag.outputs.TAG }}
+          message: 'New Version ${{ steps.get_tag.outputs.TAG }}'
