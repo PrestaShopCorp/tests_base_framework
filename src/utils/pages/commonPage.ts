@@ -10,7 +10,9 @@ export class CommonPage {
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
-  async getPageTitle(page: Page): Promise<string> {
+  async getPageTitle(
+    page: Page,
+  ): Promise<string> {
     return page.title();
   }
 

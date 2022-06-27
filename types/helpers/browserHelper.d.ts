@@ -1,5 +1,4 @@
 import type { Browser, BrowserContext, Page, Route, Request } from 'playwright';
-import type { Serializable } from 'playwright/types/structs';
 /**
  * Create browser with options
  * @returns {Promise<Browser|null>}
@@ -69,12 +68,12 @@ declare function deleteRoute(browserElement: Page | BrowserContext, url: string 
  * Add init script to the browser tab or to the browser context
  * @param browserElement {Page|BrowserContext}
  * @param script {Function|string|{path: ?string, content: ?string}}
- * @param args {Serializable}
+ * @param args {never}
  * @return {Promise<void>}
  */
 declare function addInitScript(browserElement: Page | BrowserContext, script: Function | string | {
     path?: string;
     content?: string;
-}, args?: Serializable): Promise<void>;
+}, args: never): Promise<void>;
 export { createBrowser, closeBrowser, createContext, closeContext, getBrowserContext, addTab, closeTab, getTab, addInitScript, addRoute, deleteRoute };
 export * as browserHelper from './browserHelper';

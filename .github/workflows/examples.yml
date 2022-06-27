@@ -14,7 +14,7 @@ env:
   URL: 'https://addons-qa.prestashop.com/'
   HTTP_CRED_USERNAME: '${{ secrets.HTTP_CRED_USERNAME }}'
   HTTP_CRED_PASSWORD: '${{ secrets.HTTP_CRED_PASSWORD }}'
-  NODE_VERSION: 14.x
+  NODE_VERSION: 16.x
 
 jobs:
 
