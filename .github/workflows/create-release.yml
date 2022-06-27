@@ -4,9 +4,17 @@ on:
   push:
     tags:
       - '*'
+  workflow_dispatch:
+    inputs:
+      tag-name:
+        description: Tag to create release from
+        required: true
+        type: string
+        default: 2.1.0
 
 env:
   NODE_VERSION: 16.x
+  TAG_NAME: ${{ inputs.tag-name }}
 
 jobs:
   create-release:
@@ -15,8 +23,8 @@ jobs:
 
     steps:
       - name: Get tag
-        id: get_tag
-        run: echo ::set-output name=TAG::$(echo $GITHUB_REF | cut -d / -f 3)
+        if: ${{ github.event_name != 'workflow_dispatch' }}
+        run:  echo "TAG_NAME=$(echo $GITHUB_REF | cut -d / -f 3)" >> $GITHUB_ENV
 
       - name: Changelog
         uses: scottbrenner/generate-changelog-action@master
@@ -38,8 +46,8 @@ jobs:
         with:
           draft: false
           prerelease: false
-          release_name: "V${{ steps.get_tag.outputs.TAG }}"
-          tag_name: ${{ steps.get_tag.outputs.TAG }}
+          release_name: "V${{ env.TAG_NAME }}"
+          tag_name: ${{ env.TAG_NAME }}
           body: |
             ${{ steps.Changelog.outputs.changelog }}
         env:
