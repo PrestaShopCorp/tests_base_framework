@@ -18,7 +18,7 @@ class DbHelper {
    * @returns {Query}
    */
   async executeQuery(query: string) {
-    const connection = await this.createPool();
+    const connection = this.createPool();
     const results = await connection.execute(query);
     await this.destroyConnection(connection);
     return results;
@@ -38,15 +38,17 @@ class DbHelper {
    * @param table {string} Name of the table
    * @param fields {string|Array<string>} Fields to add to the request
    * @param conditions {?string} Fields to add to the request
-   * @return {Promise<string>}
+   * @return {string}
    */
-  async createCustomSelectQuery(
+  createCustomSelectQuery(
     table: string,
-    fields: string|Array<string> = '*',
-    conditions?: string,
-  ) {
-    const query =
-      (customFields: string) => `SELECT ${customFields} FROM ${table} ${!conditions ? '' : `where ${conditions}`};`;
+    fields: string | Array<string> = '*',
+    conditions?: string
+  ): string {
+    const query = (customFields: string) =>
+      `SELECT ${customFields} FROM ${table} ${
+        !conditions ? '' : `where ${conditions}`
+      };`;
 
     if (typeof fields === 'string') {
       return query(fields);
@@ -64,11 +66,11 @@ class DbHelper {
    */
   async getResultsCustomSelectQuery(
     table: string,
-    fields: string|Array<string> = '*',
-    conditions?: string,
+    fields: string | Array<string> = '*',
+    conditions?: string
   ) {
     return this.getQueryResults(
-      await this.createCustomSelectQuery(table, fields, conditions),
+      this.createCustomSelectQuery(table, fields, conditions)
     );
   }
 
@@ -77,7 +79,7 @@ class DbHelper {
    * @param query {string} Query to execute
    * @returns {Promise<Array<Object>>}
    */
-  async getQueryFields(query: string) {
+  async getQueryFields(query: string): Promise<mysql.FieldPacket[]> {
     return (await this.executeQuery(query))[1];
   }
 

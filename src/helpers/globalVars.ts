@@ -1,5 +1,9 @@
-import 'dotenv/config';
+import {config} from 'dotenv';
 import {devices} from 'playwright';
+
+config({
+  path: '.env'
+});
 
 export class GlobalVars {
   private static browsersList = ['chromium', 'firefox', 'webkit'];
@@ -9,16 +13,19 @@ export class GlobalVars {
   public static platform = process.env.PLATFORM || 'desktop';
 
   public static browser = {
-    name: process.env.BROWSER || 'chromium',
+    name: (process.env.BROWSER || 'chromium') as
+      | 'chromium'
+      | 'firefox'
+      | 'webkit',
 
     // Define browser options
     options: {
-      headless: JSON.parse(process.env.HEADLESS || 'true'),
+      headless: !(process.env.HEADLESS === 'false'),
       timeout: 0,
       slowMo: parseInt(process.env.SLOW_MO || '5', 10),
-      acceptDownloads: JSON.parse(process.env.ACCEPT_DOWNLOADS || 'true'),
-      args: [] as string[],
-    },
+      acceptDownloads: !(process.env.ACCEPT_DOWNLOADS || 'true'),
+      args: ['--no-incognito'] as string[]
+    }
   };
 
   /**
@@ -26,11 +33,15 @@ export class GlobalVars {
    */
   public static getBrowserOptions() {
     if (this.platformsList.indexOf(this.platform) === -1) {
-      throw new Error(`The framework can't handle the platform ${this.platform}`)
+      throw new Error(
+        `The framework can't handle the platform ${this.platform}`
+      );
     }
 
     if (this.browsersList.indexOf(this.browser.name) === -1) {
-      throw new Error(`The framework can't handle the browser ${this.browser.name}`);
+      throw new Error(
+        `The framework can't handle the browser ${this.browser.name}`
+      );
     }
 
     let browserOptions;
@@ -38,8 +49,8 @@ export class GlobalVars {
     if (this.platform === 'mobile' || this.browser.name === 'chromium') {
       browserOptions = {
         ...this.browser.options,
-        chromiumSandbox: false,
-      }
+        chromiumSandbox: false
+      };
 
       browserOptions.args.push('--disable-web-security');
     } else {
@@ -54,18 +65,18 @@ export class GlobalVars {
     options: {
       viewport: {
         width: parseInt(process.env.WIDTH || '1680', 10),
-        height: parseInt(process.env.HEIGHT || '900', 10),
+        height: parseInt(process.env.HEIGHT || '900', 10)
       },
       locale: process.env.LOCALE || 'fr-FR',
       httpCredentials: {
         username: process.env.HTTP_CRED_USERNAME || '',
-        password: process.env.HTTP_CRED_PASSWORD || '',
+        password: process.env.HTTP_CRED_PASSWORD || ''
       }
-    },
+    }
   };
 
   public static device = {
-    name: process.env.DEVICE,
+    name: process.env.DEVICE as string
   };
 
   /**
@@ -75,11 +86,11 @@ export class GlobalVars {
     let contextOptions = this.browserContext.options;
 
     if (this.platform === 'mobile') {
-      const device = devices[this.device.name!];
+      const device = devices[this.device.name];
 
       contextOptions = {
         ...contextOptions,
-        ...device,
+        ...device
       };
     }
 
@@ -94,13 +105,12 @@ export class GlobalVars {
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'mydatabase',
+    database: process.env.DB_NAME || 'mydatabase'
   };
 
   /* Screenshots activation */
   public static screenshots = {
-    active : process.env.SCREENSHOTS_ON || true,
-    folder : process.env.SCREENSHOTS_FOLDER || './screenshots',
-
+    active: process.env.SCREENSHOTS_ON || true,
+    folder: process.env.SCREENSHOTS_FOLDER || './screenshots'
   };
 }

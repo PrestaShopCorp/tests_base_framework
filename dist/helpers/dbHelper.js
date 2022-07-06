@@ -28,7 +28,7 @@ class DbHelper {
      */
     executeQuery(query) {
         return __awaiter(this, void 0, void 0, function* () {
-            const connection = yield this.createPool();
+            const connection = this.createPool();
             const results = yield connection.execute(query);
             yield this.destroyConnection(connection);
             return results;
@@ -49,16 +49,14 @@ class DbHelper {
      * @param table {string} Name of the table
      * @param fields {string|Array<string>} Fields to add to the request
      * @param conditions {?string} Fields to add to the request
-     * @return {Promise<string>}
+     * @return {string}
      */
     createCustomSelectQuery(table, fields = '*', conditions) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const query = (customFields) => `SELECT ${customFields} FROM ${table} ${!conditions ? '' : `where ${conditions}`};`;
-            if (typeof fields === 'string') {
-                return query(fields);
-            }
-            return query(fields.join(','));
-        });
+        const query = (customFields) => `SELECT ${customFields} FROM ${table} ${!conditions ? '' : `where ${conditions}`};`;
+        if (typeof fields === 'string') {
+            return query(fields);
+        }
+        return query(fields.join(','));
     }
     /**
      * Execute a custom 'SELECT' query
@@ -69,7 +67,7 @@ class DbHelper {
      */
     getResultsCustomSelectQuery(table, fields = '*', conditions) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.getQueryResults(yield this.createCustomSelectQuery(table, fields, conditions));
+            return this.getQueryResults(this.createCustomSelectQuery(table, fields, conditions));
         });
     }
     /**

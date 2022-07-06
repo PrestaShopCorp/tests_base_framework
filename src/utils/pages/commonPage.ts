@@ -10,9 +10,7 @@ export class CommonPage {
    * @param page {Page} Browser tab
    * @returns {Promise<string>}
    */
-  async getPageTitle(
-    page: Page,
-  ): Promise<string> {
+  async getPageTitle(page: Page): Promise<string> {
     return page.title();
   }
 
@@ -26,7 +24,11 @@ export class CommonPage {
   async goTo(
     page: Page,
     url: string,
-    waitUntil: 'networkidle' | 'load' | 'domcontentloaded' | undefined = 'networkidle'
+    waitUntil:
+      | 'networkidle'
+      | 'load'
+      | 'domcontentloaded'
+      | undefined = 'networkidle'
   ): Promise<void> {
     await page.goto(url, {waitUntil});
   }
@@ -34,10 +36,21 @@ export class CommonPage {
   /**
    * Get current url
    * @param page {Page} Browser tab
-   * @returns {Promise<string>}
+   * @returns {string}
    */
-  async getCurrentURL(page: Page): Promise<string> {
+  getCurrentURL(page: Page): string {
     return decodeURIComponent(page.url());
+  }
+
+  /**
+   * Wait for timeout to sleep a browsing
+   * @param page {Page} Browser tab
+   * @param timeout {number} Time to wait on milliseconds before throwing an error
+   * @returns {Promise<void>}
+   */
+
+  async waitForTimeout(page: Page, timeout = 10000): Promise<void> {
+    await page.waitForTimeout(timeout);
   }
 
   /**
@@ -128,11 +141,11 @@ export class CommonPage {
     page: Page,
     selector: string,
     waitForSelector = true
-  ): Promise<string|null> {
+  ): Promise<string | null> {
     if (waitForSelector) {
       await this.waitForVisibleSelector(page, selector);
     }
-    const textContent = await page.$eval(selector, el => el.textContent);
+    const textContent = await page.$eval(selector, (el) => el.textContent);
 
     return textContent ? textContent.replace(/\s+/g, ' ').trim() : null;
   }
@@ -147,11 +160,10 @@ export class CommonPage {
   async getAttributeContent(
     page: Page,
     selector: string,
-    attribute: string,
-  ): Promise<string|null> {
+    attribute: string
+  ): Promise<string | null> {
     await page.waitForSelector(selector, {state: 'attached'});
-    return page.$eval(selector, (el, attr) => el
-      .getAttribute(attr), attribute);
+    return page.$eval(selector, (el, attr) => el.getAttribute(attr), attribute);
   }
 
   /**
@@ -184,7 +196,7 @@ export class CommonPage {
   async elementNotVisible(
     page: Page,
     selector: string,
-    timeout = 10,
+    timeout = 10
   ): Promise<boolean> {
     try {
       await this.waitForHiddenSelector(page, selector, timeout);
@@ -208,7 +220,7 @@ export class CommonPage {
   ): Promise<Page> {
     const [newPage] = await Promise.all([
       page.waitForEvent('popup'),
-      page.click(selector),
+      page.click(selector)
     ]);
 
     await newPage.waitForLoadState('networkidle');
@@ -228,7 +240,7 @@ export class CommonPage {
     page: Page,
     selector: string,
     timeout = 5000
-  ):Promise<void> {
+  ): Promise<void> {
     await this.waitForVisibleSelector(page, selector, timeout);
     await page.click(selector);
   }
@@ -238,9 +250,7 @@ export class CommonPage {
    * @param page {Page} Browser tab
    * @return {Promise<void>}
    */
-  async reloadPage(
-    page: Page
-  ): Promise<void> {
+  async reloadPage(page: Page): Promise<void> {
     await page.reload();
   }
 
@@ -251,11 +261,7 @@ export class CommonPage {
    * @param value {?string|number} Value to set on the input
    * @return {Promise<void>}
    */
-  async setValue(
-    page: Page,
-    selector: string,
-    value: string
-  ):Promise<void> {
+  async setValue(page: Page, selector: string, value: string): Promise<void> {
     await page.fill(selector, value);
   }
 
@@ -265,10 +271,7 @@ export class CommonPage {
    * @param selector {string} String to locate the element for the deletion
    * @returns {Promise<void>}
    */
-  async deleteTextFromInput(
-    page: Page,
-    selector: string
-  ): Promise<void> {
+  async deleteTextFromInput(page: Page, selector: string): Promise<void> {
     await this.waitForSelectorAndClick(page, selector);
     await page.click(selector, {clickCount: 3});
     // Delete text from input before typing
@@ -281,19 +284,15 @@ export class CommonPage {
    * @param page {Page} Browser tab
    * @param accept {boolean} True to accept the dialog, false to dismiss
    * @param text {string} Text to set on dialog input
-   * @return {Promise<void>}
+   * @returns {void}
    */
-  async dialogListener(
-    page: Page,
-    accept = true,
-    text = ''
-  ): Promise<void> {
+  dialogListener(page: Page, accept: boolean, text: string): void {
     page.once('dialog', (dialog) => {
       if (accept) {
-        if (text !== '') dialog.accept(text);
-        else dialog.accept();
+        if (text !== '') void dialog.accept(text);
+        else void dialog.accept();
       } else {
-        dialog.dismiss();
+        void dialog.dismiss();
       }
     });
   }
@@ -309,11 +308,11 @@ export class CommonPage {
     browserContext: BrowserContext,
     page: Page,
     tabId = -1
-  ): Promise<Page|null> {
+  ): Promise<Page | null> {
     await page.close();
 
     if (tabId !== -1) {
-      return (browserContext.pages())[tabId];
+      return browserContext.pages()[tabId];
     }
     return null;
   }
@@ -324,11 +323,8 @@ export class CommonPage {
    * @param selector {string} String to locate the element to scroll to
    * @return {Promise<void>}
    */
-  async scrollTo(
-    page: Page,
-    selector: string
-  ): Promise<void> {
-    await page.$eval(selector, el => el.scrollIntoView());
+  async scrollTo(page: Page, selector: string): Promise<void> {
+    await page.$eval(selector, (el) => el.scrollIntoView());
   }
 
   /**
@@ -342,7 +338,7 @@ export class CommonPage {
   async selectByVisibleText(
     page: Page,
     selector: string,
-    textValue: string|number,
+    textValue: string | number,
     force = false
   ): Promise<void> {
     await page.selectOption(selector, {label: textValue.toString()}, {force});
@@ -377,11 +373,15 @@ export class CommonPage {
   async clickAndWaitForNavigation(
     page: Page,
     selector: string,
-    waitUntil: 'networkidle' | 'load' | 'domcontentloaded' | undefined = 'networkidle'
+    waitUntil:
+      | 'networkidle'
+      | 'load'
+      | 'domcontentloaded'
+      | undefined = 'networkidle'
   ): Promise<void> {
     await Promise.all([
       page.waitForNavigation({waitUntil}),
-      page.click(selector),
+      page.click(selector)
     ]);
   }
 
@@ -404,10 +404,7 @@ export class CommonPage {
    * @param selector {string} String to locate the checkbox
    * @return {Promise<boolean>}
    */
-  async isCheckboxSelected(
-    page: Page,
-    selector: string
-  ): Promise<boolean> {
+  async isCheckboxSelected(page: Page, selector: string): Promise<boolean> {
     return page.isChecked(selector);
   }
 
@@ -437,12 +434,8 @@ export class CommonPage {
    * @param target {string} String to locate the element where to drop
    * @return {Promise<void>}
    */
-  async dragAndDrop(
-    page: Page,
-    source: string,
-    target: string
-  ): Promise<void> {
-    await page.dragAndDrop(source, target)
+  async dragAndDrop(page: Page, source: string, target: string): Promise<void> {
+    await page.dragAndDrop(source, target);
   }
 
   /**
@@ -474,8 +467,8 @@ export class CommonPage {
     filePath: string
   ): Promise<void> {
     // Set value when fileChooser is open
-    page.once('filechooser', async (fileChooser) => {
-      await fileChooser.setFiles(filePath);
+    page.once('filechooser', (fileChooser) => {
+      void fileChooser.setFiles(filePath);
     });
     await page.click(selector);
   }
@@ -490,7 +483,10 @@ export class CommonPage {
     page: Page,
     selector: string
   ): Promise<JSHandle<null> | ElementHandle<HTMLElement>> {
-    return page.evaluateHandle(sl => document.querySelector(sl)!.parentElement, selector);
+    return page.evaluateHandle(
+      (sl) => document.querySelector(sl)!.parentElement,
+      selector
+    );
   }
 
   /**
@@ -504,17 +500,17 @@ export class CommonPage {
     page: Page,
     selector: string,
     targetBlank = false
-  ): Promise<string|null> {
+  ): Promise<string | null> {
     // Delete the target because a new tab is opened when downloading the file
     if (targetBlank) {
       // @ts-ignore
-      await page.$eval(selector, (el) => el.target = '');
+      await page.$eval(selector, (el) => (el.target = ''));
     }
     /* eslint-enable no-return-assign, no-param-reassign */
 
     const [download] = await Promise.all([
       page.waitForEvent('download'),
-      page.click(selector),
+      page.click(selector)
     ]);
 
     return download.path();
@@ -528,9 +524,13 @@ export class CommonPage {
    */
   getBoundingClientRect(
     page: Page,
-    selector: string,
-  ): Promise<DOMRect|undefined> {
-    return page.evaluate(() => document.querySelector(selector)?.getBoundingClientRect());
+    selector: string
+  ): Promise<DOMRect | undefined> {
+    return page.evaluate(
+      (sl) =>
+        <DOMRect>document.querySelector(sl)?.getBoundingClientRect().toJSON(),
+      selector
+    );
   }
 
   /**
@@ -538,32 +538,35 @@ export class CommonPage {
    * @param page {Page} Browser tab
    * @returns {Promise<{ vw: number; vh: number }>}
    */
-  getDocumentClientSize(
-    page: Page,
-  ): Promise<{ vw: number; vh: number }> {
+  getDocumentClientSize(page: Page): Promise<{vw: number; vh: number}> {
     return page.evaluate(() => {
       return {
-        vw: Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0),
-        vh: Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0),
-      }
-    })
+        vw: Math.max(
+          document.documentElement.clientWidth || 0,
+          window.innerWidth || 0
+        ),
+        vh: Math.max(
+          document.documentElement.clientHeight || 0,
+          window.innerHeight || 0
+        )
+      };
+    });
   }
 
   /**
-   *
    * Check if an element is visible in viewport after a page scroll
    * @param page {Page} Browser tab
    * @param selector {string} Selector to check visibility
    * @returns {Promise<boolean>} True if selector visible in viewport and False if not
    */
   async isElementVisibleAfterScroll(
-      page: Page,
-      selector: string,
+    page: Page,
+    selector: string
   ): Promise<boolean> {
     const rect = await this.getBoundingClientRect(page, selector);
     if (rect!.top >= 0 && rect!.left >= 0) {
       const documentSize = await this.getDocumentClientSize(page);
-      return (rect!.right <= documentSize.vw && rect!.bottom <= documentSize.vh);
+      return rect!.right <= documentSize.vw && rect!.bottom <= documentSize.vh;
     }
 
     return false;

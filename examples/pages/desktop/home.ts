@@ -1,5 +1,5 @@
 import 'module-alias/register';
-import {CommonPage} from '~/src';
+import {CommonPage} from '../../../src/utils/pages/commonPage';
 import {Page} from 'playwright';
 
 class Home extends CommonPage {
@@ -10,7 +10,8 @@ class Home extends CommonPage {
     super();
 
     // Text
-    this.pageTitle = 'PrestaShop Addons Marketplace - Modules, Thèmes & Support';
+    this.pageTitle =
+      'PrestaShop Addons Marketplace - Modules, Thèmes & Support';
 
     // Selector
     this.firstVisitLink = '#ps_link_first_visit';

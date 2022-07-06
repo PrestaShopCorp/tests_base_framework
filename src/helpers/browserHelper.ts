@@ -1,4 +1,5 @@
 import type {Browser, BrowserContext, Page, Route, Request} from 'playwright';
+import type {Serializable} from 'playwright/types/structs';
 
 import * as playwright from 'playwright';
 import {GlobalVars} from './globalVars';
@@ -8,7 +9,7 @@ import {GlobalVars} from './globalVars';
  * Create browser with options
  * @returns {Promise<Browser|null>}
  */
-async function createBrowser(): Promise<Browser|null> {
+async function createBrowser(): Promise<Browser | null> {
   // Get browser options
   const browserOptions = GlobalVars.getBrowserOptions();
 
@@ -17,13 +18,12 @@ async function createBrowser(): Promise<Browser|null> {
   // Trying to create the browser for 3 times
   while (attempt <= 3) {
     try {
-      // @ts-ignore
-      return (await playwright[GlobalVars.browser.name].launch(browserOptions));
+      return await playwright[GlobalVars.browser.name].launch(browserOptions);
     } catch (e) {
       if (attempt === 3) {
         throw new Error((e as Error).message);
       } else {
-        await (new Promise(resolve => setTimeout(resolve, 5000)));
+        await new Promise((resolve) => setTimeout(resolve, 5000));
         attempt += 1;
       }
     }
@@ -37,9 +37,7 @@ async function createBrowser(): Promise<Browser|null> {
  * @param browser {Browser} Browser launched for tests
  * @returns {Promise<void>}
  */
-async function closeBrowser(
-  browser: Browser,
-): Promise<void> {
+async function closeBrowser(browser: Browser): Promise<void> {
   await browser.close();
 }
 
@@ -50,9 +48,7 @@ async function closeBrowser(
  * @param browser {Browser} Browser created with function above
  * @returns {Promise<BrowserContext>}
  */
-async function createContext(
-  browser: Browser,
-): Promise<BrowserContext> {
+async function createContext(browser: Browser): Promise<BrowserContext> {
   const contextOptions = GlobalVars.getBrowserContextOptions();
 
   return browser.newContext(contextOptions);
@@ -71,24 +67,20 @@ async function closeContext(context: BrowserContext): Promise<void> {
  * Get browser context by position
  * @param browser {Browser} Browser launched for tests
  * @param position {number} Position of the context (-1 for the last context)
- * @returns {Promise<BrowserContext>}
+ * @returns {BrowserContext}
  */
-async function getBrowserContext(
-  browser: Browser,
-  position = -1
-): Promise<BrowserContext> {
+function getBrowserContext(browser: Browser, position = -1): BrowserContext {
   const contexts = browser.contexts();
   if (!contexts || contexts.length === 0) {
     throw new Error('0 Context was found for this browser');
   } else if (position < -1 || position >= contexts.length) {
-    throw new Error(`Position ${position} is wrong to get the context`)
+    throw new Error(`Position ${position} is wrong to get the context`);
   } else if (position === -1) {
     return contexts[contexts.length - 1];
   }
 
   return contexts[position];
 }
-
 
 /* Tab functions */
 
@@ -114,17 +106,14 @@ async function closeTab(tab: Page): Promise<void> {
  * Get Browser tab from position
  * @param context {BrowserContext} Context to get tab from
  * @param position {number} Position of the tab (-1 for last tab)
- * @returns {Promise<Page>}
+ * @returns {Page}
  */
-async function getTab(
-  context: BrowserContext,
-  position = -1
-): Promise<Page> {
+function getTab(context: BrowserContext, position = -1): Page {
   const tabs = context.pages();
   if (!tabs || tabs.length === 0) {
     throw new Error('0 Page was found for this context');
   } else if (position < -1 || position >= tabs.length) {
-    throw new Error(`Position ${position} is wrong to get the browser tab`)
+    throw new Error(`Position ${position} is wrong to get the browser tab`);
   } else if (position === -1) {
     return tabs[tabs.length - 1];
   }
@@ -142,9 +131,9 @@ async function getTab(
  * @return {Promise<void>}
  */
 async function addRoute(
-  browserElement : Page|BrowserContext,
-  url: string|RegExp|((url: URL) => boolean),
-  handler: ((route: Route, request: Request) => void),
+  browserElement: Page | BrowserContext,
+  url: string | RegExp | ((url: URL) => boolean),
+  handler: (route: Route, request: Request) => void
 ): Promise<void> {
   await browserElement.route(url, handler);
 }
@@ -157,9 +146,9 @@ async function addRoute(
  * @return {Promise<void>}
  */
 async function deleteRoute(
-  browserElement : Page|BrowserContext,
-  url: string|RegExp|((url: URL) => boolean),
-  handler: ((route: Route, request: Request) => void),
+  browserElement: Page | BrowserContext,
+  url: string | RegExp | ((url: URL) => boolean),
+  handler: (route: Route, request: Request) => void
 ): Promise<void> {
   await browserElement.unroute(url, handler);
 }
@@ -168,17 +157,16 @@ async function deleteRoute(
  * Add init script to the browser tab or to the browser context
  * @param browserElement {Page|BrowserContext}
  * @param script {Function|string|{path: ?string, content: ?string}}
- * @param args {never}
+ * @param args {Serializable}
  * @return {Promise<void>}
  */
 async function addInitScript(
-  browserElement : Page|BrowserContext,
-  script: Function|string|{path?: string, content?: string},
-  args: never,
-):Promise<void> {
+  browserElement: Page | BrowserContext,
+  script: Function | string | {path?: string; content?: string},
+  args?: Serializable
+): Promise<void> {
   await browserElement.addInitScript(script, args);
 }
-
 
 export {
   createBrowser,
@@ -193,4 +181,5 @@ export {
   addRoute,
   deleteRoute
 };
+
 export * as browserHelper from './browserHelper';
