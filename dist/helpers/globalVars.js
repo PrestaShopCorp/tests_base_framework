@@ -52,7 +52,7 @@ GlobalVars.browser = {
         timeout: 0,
         slowMo: parseInt(process.env.SLOW_MO || '5', 10),
         acceptDownloads: !(process.env.ACCEPT_DOWNLOADS || 'true'),
-        args: ['--no-incognito']
+        args: []
     }
 };
 /* Browser context vars and functions */
