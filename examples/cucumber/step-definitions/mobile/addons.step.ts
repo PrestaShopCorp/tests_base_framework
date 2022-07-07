@@ -4,7 +4,7 @@ import {expect} from 'chai';
 import type {Page} from 'playwright';
 
 // Import browser helper
-import {GlobalVars} from '~/src/helpers/globalVars';
+import {GlobalVars} from '~/src';
 
 // Import cucumber
 import {Given, When, Then} from '@cucumber/cucumber';

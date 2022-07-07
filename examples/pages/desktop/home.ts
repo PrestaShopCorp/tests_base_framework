@@ -1,5 +1,5 @@
 import 'module-alias/register';
-import {CommonPage} from '../../../src/utils/pages/commonPage';
+import {CommonPage} from '~/src';
 import {Page} from 'playwright';
 
 class Home extends CommonPage {
