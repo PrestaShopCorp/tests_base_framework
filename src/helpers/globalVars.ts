@@ -24,7 +24,7 @@ export class GlobalVars {
       timeout: 0,
       slowMo: parseInt(process.env.SLOW_MO || '5', 10),
       acceptDownloads: !(process.env.ACCEPT_DOWNLOADS || 'true'),
-      args: ['--no-incognito'] as string[]
+      args: [] as string[]
     }
   };
 
