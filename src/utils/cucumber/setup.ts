@@ -1,12 +1,10 @@
-import type {Browser} from 'playwright';
+import type {Browser, BrowserContext} from 'playwright';
 
-import {
-  BeforeAll, Before, After, AfterAll,
-} from '@cucumber/cucumber';
+import {BeforeAll, Before, After, AfterAll} from '@cucumber/cucumber';
 
 import * as browserHelper from '../../helpers/browserHelper';
 
-let browser: Browser|null;
+let browser: Browser | null;
 
 /**
  * Create unique browser for all mocha run
@@ -21,8 +19,12 @@ BeforeAll(async () => {
  */
 Before(async function () {
   this.browser = browser;
-  this.browserContext = await browserHelper.createContext(this.browser);
-  this.browserTab = await browserHelper.addTab(this.browserContext);
+  this.browserContext = await browserHelper.createContext(
+    <Browser>this.browser
+  );
+  this.browserTab = await browserHelper.addTab(
+    <BrowserContext>this.browserContext
+  );
 });
 
 /**
@@ -30,7 +32,7 @@ Before(async function () {
  * Tabs are destroyed with the context
  */
 After(async function () {
-  await browserHelper.closeContext(this.browserContext);
+  await browserHelper.closeContext(<BrowserContext>this.browserContext);
 });
 
 /**

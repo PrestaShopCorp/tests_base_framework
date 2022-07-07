@@ -26,9 +26,9 @@ declare function closeContext(context: BrowserContext): Promise<void>;
  * Get browser context by position
  * @param browser {Browser} Browser launched for tests
  * @param position {number} Position of the context (-1 for the last context)
- * @returns {Promise<BrowserContext>}
+ * @returns {BrowserContext}
  */
-declare function getBrowserContext(browser: Browser, position?: number): Promise<BrowserContext>;
+declare function getBrowserContext(browser: Browser, position?: number): BrowserContext;
 /**
  * Add new tab on the browser
  * @param context {BrowserContext} Browser context created above
@@ -45,9 +45,9 @@ declare function closeTab(tab: Page): Promise<void>;
  * Get Browser tab from position
  * @param context {BrowserContext} Context to get tab from
  * @param position {number} Position of the tab (-1 for last tab)
- * @returns {Promise<Page>}
+ * @returns {Page}
  */
-declare function getTab(context: BrowserContext, position?: number): Promise<Page>;
+declare function getTab(context: BrowserContext, position?: number): Page;
 /**
  * Add route to the browser tab or to the browser context
  * @param browserElement {Page|BrowserContext}
@@ -55,7 +55,7 @@ declare function getTab(context: BrowserContext, position?: number): Promise<Pag
  * @param handler {function(Route, Request)}
  * @return {Promise<void>}
  */
-declare function addRoute(browserElement: Page | BrowserContext, url: string | RegExp | ((url: URL) => boolean), handler: ((route: Route, request: Request) => void)): Promise<void>;
+declare function addRoute(browserElement: Page | BrowserContext, url: string | RegExp | ((url: URL) => boolean), handler: (route: Route, request: Request) => void): Promise<void>;
 /**
  * Delete route to the browser tab or to the browser context
  * @param browserElement {Page|BrowserContext}
@@ -63,7 +63,7 @@ declare function addRoute(browserElement: Page | BrowserContext, url: string | R
  * @param handler {function(Route, Request)}
  * @return {Promise<void>}
  */
-declare function deleteRoute(browserElement: Page | BrowserContext, url: string | RegExp | ((url: URL) => boolean), handler: ((route: Route, request: Request) => void)): Promise<void>;
+declare function deleteRoute(browserElement: Page | BrowserContext, url: string | RegExp | ((url: URL) => boolean), handler: (route: Route, request: Request) => void): Promise<void>;
 /**
  * Add init script to the browser tab or to the browser context
  * @param browserElement {Page|BrowserContext}
@@ -74,6 +74,6 @@ declare function deleteRoute(browserElement: Page | BrowserContext, url: string 
 declare function addInitScript(browserElement: Page | BrowserContext, script: Function | string | {
     path?: string;
     content?: string;
-}, args: never): Promise<void>;
+}, args?: never): Promise<void>;
 export { createBrowser, closeBrowser, createContext, closeContext, getBrowserContext, addTab, closeTab, getTab, addInitScript, addRoute, deleteRoute };
 export * as browserHelper from './browserHelper';

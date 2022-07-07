@@ -10,7 +10,8 @@ class Home extends CommonPage {
     super();
 
     // Text
-    this.pageTitle = 'PrestaShop Addons Marketplace - Modules, Thèmes & Support';
+    this.pageTitle =
+      'PrestaShop Addons Marketplace - Modules, Thèmes & Support';
 
     // Selector
     this.firstVisitLink = '#ps_link_first_visit';

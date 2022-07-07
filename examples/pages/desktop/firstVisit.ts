@@ -1,5 +1,5 @@
 import 'module-alias/register';
-import {CommonPage} from '~/src/utils/pages/commonPage';
+import {CommonPage} from '~/src';
 
 class FirstVisit extends CommonPage {
   public pageFrTitle: string;
@@ -7,7 +7,8 @@ class FirstVisit extends CommonPage {
     super();
 
     // Text
-    this.pageFrTitle = 'Première visite sur PrestaShop Addons - PrestaShop Addons';
+    this.pageFrTitle =
+      'Première visite sur PrestaShop Addons - PrestaShop Addons';
   }
 }
 

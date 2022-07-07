@@ -28,9 +28,9 @@ declare class DbHelper {
      * @param table {string} Name of the table
      * @param fields {string|Array<string>} Fields to add to the request
      * @param conditions {?string} Fields to add to the request
-     * @return {Promise<string>}
+     * @return {string}
      */
-    createCustomSelectQuery(table: string, fields?: string | Array<string>, conditions?: string): Promise<string>;
+    createCustomSelectQuery(table: string, fields?: string | Array<string>, conditions?: string): string;
     /**
      * Execute a custom 'SELECT' query
      * @param table {string} Name of the table

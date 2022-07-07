@@ -26,15 +26,14 @@ function createBrowser() {
         // Trying to create the browser for 3 times
         while (attempt <= 3) {
             try {
-                // @ts-ignore
-                return (yield playwright[globalVars_1.GlobalVars.browser.name].launch(browserOptions));
+                return yield playwright[globalVars_1.GlobalVars.browser.name].launch(browserOptions);
             }
             catch (e) {
                 if (attempt === 3) {
                     throw new Error(e.message);
                 }
                 else {
-                    yield (new Promise(resolve => setTimeout(resolve, 5000)));
+                    yield new Promise((resolve) => setTimeout(resolve, 5000));
                     attempt += 1;
                 }
             }
@@ -82,22 +81,20 @@ exports.closeContext = closeContext;
  * Get browser context by position
  * @param browser {Browser} Browser launched for tests
  * @param position {number} Position of the context (-1 for the last context)
- * @returns {Promise<BrowserContext>}
+ * @returns {BrowserContext}
  */
 function getBrowserContext(browser, position = -1) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const contexts = browser.contexts();
-        if (!contexts || contexts.length === 0) {
-            throw new Error('0 Context was found for this browser');
-        }
-        else if (position < -1 || position >= contexts.length) {
-            throw new Error(`Position ${position} is wrong to get the context`);
-        }
-        else if (position === -1) {
-            return contexts[contexts.length - 1];
-        }
-        return contexts[position];
-    });
+    const contexts = browser.contexts();
+    if (!contexts || contexts.length === 0) {
+        throw new Error('0 Context was found for this browser');
+    }
+    else if (position < -1 || position >= contexts.length) {
+        throw new Error(`Position ${position} is wrong to get the context`);
+    }
+    else if (position === -1) {
+        return contexts[contexts.length - 1];
+    }
+    return contexts[position];
 }
 exports.getBrowserContext = getBrowserContext;
 /* Tab functions */
@@ -127,22 +124,20 @@ exports.closeTab = closeTab;
  * Get Browser tab from position
  * @param context {BrowserContext} Context to get tab from
  * @param position {number} Position of the tab (-1 for last tab)
- * @returns {Promise<Page>}
+ * @returns {Page}
  */
 function getTab(context, position = -1) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const tabs = context.pages();
-        if (!tabs || tabs.length === 0) {
-            throw new Error('0 Page was found for this context');
-        }
-        else if (position < -1 || position >= tabs.length) {
-            throw new Error(`Position ${position} is wrong to get the browser tab`);
-        }
-        else if (position === -1) {
-            return tabs[tabs.length - 1];
-        }
-        return tabs[position];
-    });
+    const tabs = context.pages();
+    if (!tabs || tabs.length === 0) {
+        throw new Error('0 Page was found for this context');
+    }
+    else if (position < -1 || position >= tabs.length) {
+        throw new Error(`Position ${position} is wrong to get the browser tab`);
+    }
+    else if (position === -1) {
+        return tabs[tabs.length - 1];
+    }
+    return tabs[position];
 }
 exports.getTab = getTab;
 /* Routes functions */

@@ -1,8 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GlobalVars = void 0;
-require("dotenv/config");
+const dotenv_1 = require("dotenv");
 const playwright_1 = require("playwright");
+(0, dotenv_1.config)({
+    path: '.env'
+});
 class GlobalVars {
     /**
      * Get browser options
@@ -42,32 +45,32 @@ GlobalVars.platformsList = ['desktop', 'mobile'];
 /* Browser vars and functions */
 GlobalVars.platform = process.env.PLATFORM || 'desktop';
 GlobalVars.browser = {
-    name: process.env.BROWSER || 'chromium',
+    name: (process.env.BROWSER || 'chromium'),
     // Define browser options
     options: {
-        headless: JSON.parse(process.env.HEADLESS || 'true'),
+        headless: !(process.env.HEADLESS === 'false'),
         timeout: 0,
         slowMo: parseInt(process.env.SLOW_MO || '5', 10),
-        acceptDownloads: JSON.parse(process.env.ACCEPT_DOWNLOADS || 'true'),
-        args: [],
-    },
+        acceptDownloads: !(process.env.ACCEPT_DOWNLOADS || 'true'),
+        args: []
+    }
 };
 /* Browser context vars and functions */
 GlobalVars.browserContext = {
     options: {
         viewport: {
             width: parseInt(process.env.WIDTH || '1680', 10),
-            height: parseInt(process.env.HEIGHT || '900', 10),
+            height: parseInt(process.env.HEIGHT || '900', 10)
         },
         locale: process.env.LOCALE || 'fr-FR',
         httpCredentials: {
             username: process.env.HTTP_CRED_USERNAME || '',
-            password: process.env.HTTP_CRED_PASSWORD || '',
+            password: process.env.HTTP_CRED_PASSWORD || ''
         }
-    },
+    }
 };
 GlobalVars.device = {
-    name: process.env.DEVICE,
+    name: process.env.DEVICE
 };
 /* Url vars and functions */
 GlobalVars.url = process.env.URL;
@@ -76,10 +79,10 @@ GlobalVars.db = {
     host: process.env.DB_HOST || 'localhost',
     user: process.env.DB_USER || 'root',
     password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'mydatabase',
+    database: process.env.DB_NAME || 'mydatabase'
 };
 /* Screenshots activation */
 GlobalVars.screenshots = {
     active: process.env.SCREENSHOTS_ON || true,
-    folder: process.env.SCREENSHOTS_FOLDER || './screenshots',
+    folder: process.env.SCREENSHOTS_FOLDER || './screenshots'
 };

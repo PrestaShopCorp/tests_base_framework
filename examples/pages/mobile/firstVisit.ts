@@ -7,7 +7,8 @@ class FirstVisit extends CommonPage {
     super();
 
     // Text
-    this.pageFrTitle = 'Première visite sur PrestaShop Addons - PrestaShop Addons';
+    this.pageFrTitle =
+      'Première visite sur PrestaShop Addons - PrestaShop Addons';
   }
 }
 
