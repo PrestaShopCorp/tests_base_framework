@@ -48,7 +48,6 @@ export class CommonPage {
    * @param timeout {number} Time to wait on milliseconds before throwing an error
    * @returns {Promise<void>}
    */
-
   async waitForTimeout(page: Page, timeout = 10000): Promise<void> {
     await page.waitForTimeout(timeout);
   }
