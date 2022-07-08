@@ -11,7 +11,7 @@ on:
       - master
 
 env:
-  URL: 'https://addons-qa.prestashop.com/'
+  URL: 'https://addons-qa.prestashop.com/fr'
   HTTP_CRED_USERNAME: '${{ secrets.HTTP_CRED_USERNAME }}'
   HTTP_CRED_PASSWORD: '${{ secrets.HTTP_CRED_PASSWORD }}'
   NODE_VERSION: 16.x
