@@ -502,7 +502,7 @@ export class CommonPage {
   ): Promise<string | null> {
     // Delete the target because a new tab is opened when downloading the file
     if (targetBlank) {
-      // @ts-ignore
+      // @ts-expect-error
       await page.$eval(selector, (el) => (el.target = ''));
     }
     /* eslint-enable no-return-assign, no-param-reassign */
@@ -527,7 +527,7 @@ export class CommonPage {
   ): Promise<DOMRect | undefined> {
     return page.evaluate(
       (sl) =>
-        <DOMRect>document.querySelector(sl)?.getBoundingClientRect().toJSON(),
+        document.querySelector(sl)?.getBoundingClientRect().toJSON() as DOMRect,
       selector
     );
   }

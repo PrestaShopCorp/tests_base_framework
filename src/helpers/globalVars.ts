@@ -10,10 +10,10 @@ export class GlobalVars {
   private static platformsList = ['desktop', 'mobile'];
 
   /* Browser vars and functions */
-  public static platform = process.env.PLATFORM || 'desktop';
+  public static platform = process.env.PLATFORM ?? 'desktop';
 
   public static browser = {
-    name: (process.env.BROWSER || 'chromium') as
+    name: (process.env.BROWSER ?? 'chromium') as
       | 'chromium'
       | 'firefox'
       | 'webkit',
@@ -22,8 +22,8 @@ export class GlobalVars {
     options: {
       headless: !(process.env.HEADLESS === 'false'),
       timeout: 0,
-      slowMo: parseInt(process.env.SLOW_MO || '5', 10),
-      acceptDownloads: !(process.env.ACCEPT_DOWNLOADS || 'true'),
+      slowMo: parseInt(process.env.SLOW_MO ?? '5', 10),
+      acceptDownloads: !(process.env.ACCEPT_DOWNLOADS ?? 'true'),
       args: [] as string[]
     }
   };
@@ -32,13 +32,13 @@ export class GlobalVars {
    * Get browser options
    */
   public static getBrowserOptions() {
-    if (this.platformsList.indexOf(this.platform) === -1) {
+    if (!this.platformsList.includes(this.platform)) {
       throw new Error(
         `The framework can't handle the platform ${this.platform}`
       );
     }
 
-    if (this.browsersList.indexOf(this.browser.name) === -1) {
+    if (!this.browsersList.includes(this.browser.name)) {
       throw new Error(
         `The framework can't handle the browser ${this.browser.name}`
       );
@@ -64,19 +64,19 @@ export class GlobalVars {
   public static browserContext = {
     options: {
       viewport: {
-        width: parseInt(process.env.WIDTH || '1680', 10),
-        height: parseInt(process.env.HEIGHT || '900', 10)
+        width: parseInt(process.env.WIDTH ?? '1680', 10),
+        height: parseInt(process.env.HEIGHT ?? '900', 10)
       },
-      locale: process.env.LOCALE || 'fr-FR',
+      locale: process.env.LOCALE ?? 'fr-FR',
       httpCredentials: {
-        username: process.env.HTTP_CRED_USERNAME || '',
-        password: process.env.HTTP_CRED_PASSWORD || ''
+        username: process.env.HTTP_CRED_USERNAME ?? '',
+        password: process.env.HTTP_CRED_PASSWORD ?? ''
       }
     }
   };
 
   public static device = {
-    name: process.env.DEVICE as string
+    name: process.env.DEVICE!
   };
 
   /**
@@ -102,15 +102,15 @@ export class GlobalVars {
 
   /* DB helper vars and functions */
   public static db = {
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'mydatabase'
+    host: process.env.DB_HOST ?? 'localhost',
+    user: process.env.DB_USER ?? 'root',
+    password: process.env.DB_PASSWORD ?? '',
+    database: process.env.DB_NAME ?? 'mydatabase'
   };
 
   /* Screenshots activation */
   public static screenshots = {
-    active: process.env.SCREENSHOTS_ON || true,
-    folder: process.env.SCREENSHOTS_FOLDER || './screenshots'
+    active: process.env.SCREENSHOTS_ON ?? true,
+    folder: process.env.SCREENSHOTS_FOLDER ?? './screenshots'
   };
 }

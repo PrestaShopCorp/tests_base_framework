@@ -42,7 +42,7 @@ class DbHelper {
    */
   createCustomSelectQuery(
     table: string,
-    fields: string | Array<string> = '*',
+    fields: string | string[] = '*',
     conditions?: string
   ): string {
     const query = (customFields: string) =>
@@ -66,7 +66,7 @@ class DbHelper {
    */
   async getResultsCustomSelectQuery(
     table: string,
-    fields: string | Array<string> = '*',
+    fields: string | string[] = '*',
     conditions?: string
   ) {
     return this.getQueryResults(

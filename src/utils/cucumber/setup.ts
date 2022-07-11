@@ -20,10 +20,10 @@ BeforeAll(async () => {
 Before(async function () {
   this.browser = browser;
   this.browserContext = await browserHelper.createContext(
-    <Browser>this.browser
+    this.browser as Browser
   );
   this.browserTab = await browserHelper.addTab(
-    <BrowserContext>this.browserContext
+    this.browserContext as BrowserContext
   );
 });
 
@@ -32,7 +32,7 @@ Before(async function () {
  * Tabs are destroyed with the context
  */
 After(async function () {
-  await browserHelper.closeContext(<BrowserContext>this.browserContext);
+  await browserHelper.closeContext(this.browserContext as BrowserContext);
 });
 
 /**

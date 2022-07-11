@@ -14,19 +14,21 @@ import {home as homePage} from '~/examples/pages/mobile/home';
 import {firstVisit as firstVisitPage} from '~/examples/pages/mobile/firstVisit';
 
 Given('I go to url addons url', async function () {
-  await homePage.goTo(<Page>this.browserTab, GlobalVars.url!);
+  await homePage.goTo(this.browserTab as Page, GlobalVars.url!);
 });
 
 Then('I am on addons home page', async function () {
-  const actualTitle = await homePage.getPageTitle(<Page>this.browserTab);
+  const actualTitle = await homePage.getPageTitle(this.browserTab as Page);
   expect(actualTitle).to.equal(homePage.pageTitle);
 });
 
 When('I go to first visit page', async function () {
-  await homePage.goToFirstVisitLink(<Page>this.browserTab);
+  await homePage.goToFirstVisitLink(this.browserTab as Page);
 });
 
 Then('I am on first visit page', async function () {
-  const actualTitle = await firstVisitPage.getPageTitle(<Page>this.browserTab);
+  const actualTitle = await firstVisitPage.getPageTitle(
+    this.browserTab as Page
+  );
   expect(actualTitle).to.equal(firstVisitPage.pageFrTitle);
 });

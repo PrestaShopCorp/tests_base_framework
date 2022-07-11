@@ -14,7 +14,7 @@ export const mochaHooks = {
    * Create unique browser for all mocha run
    */
   beforeAll: async function () {
-    (<Context>this).browser = await createBrowser();
+    (this as Context).browser = await createBrowser();
   },
   /**
    * Take screenshot after fail
@@ -22,10 +22,10 @@ export const mochaHooks = {
   afterEach: async function () {
     if (
       GlobalVars.screenshots.active &&
-      (<Context>this).currentTest?.state === 'failed'
+      (this as Context).currentTest?.state === 'failed'
     ) {
       // Get last context used
-      const context = getBrowserContext(<Browser>(<Context>this).browser);
+      const context = getBrowserContext((this as Context).browser as Browser);
       // Get last used tab
       const page = getTab(context);
       await page.screenshot({
@@ -39,6 +39,6 @@ export const mochaHooks = {
    * Close browser after finish the run
    */
   afterAll: async function () {
-    await closeBrowser(<Browser>(<Context>this).browser);
+    await closeBrowser((this as Context).browser as Browser);
   }
 };
