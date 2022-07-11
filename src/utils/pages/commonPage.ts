@@ -502,10 +502,8 @@ export class CommonPage {
   ): Promise<string | null> {
     // Delete the target because a new tab is opened when downloading the file
     if (targetBlank) {
-      // @ts-expect-error
-      await page.$eval(selector, (el) => (el.target = ''));
+      await page.$eval(selector, (el) => (el.textContent = ''));
     }
-    /* eslint-enable no-return-assign, no-param-reassign */
 
     const [download] = await Promise.all([
       page.waitForEvent('download'),
