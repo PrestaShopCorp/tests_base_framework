@@ -1,20 +1,19 @@
 "use strict";
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GlobalVars = void 0;
 const dotenv_1 = require("dotenv");
 const playwright_1 = require("playwright");
-(0, dotenv_1.config)({
-    path: '.env'
-});
+(0, dotenv_1.config)({ path: '.env' });
 class GlobalVars {
     /**
      * Get browser options
      */
     static getBrowserOptions() {
-        if (this.platformsList.indexOf(this.platform) === -1) {
+        if (!this.platformsList.includes(this.platform)) {
             throw new Error(`The framework can't handle the platform ${this.platform}`);
         }
-        if (this.browsersList.indexOf(this.browser.name) === -1) {
+        if (!this.browsersList.includes(this.browser.name)) {
             throw new Error(`The framework can't handle the browser ${this.browser.name}`);
         }
         let browserOptions;
@@ -43,15 +42,15 @@ exports.GlobalVars = GlobalVars;
 GlobalVars.browsersList = ['chromium', 'firefox', 'webkit'];
 GlobalVars.platformsList = ['desktop', 'mobile'];
 /* Browser vars and functions */
-GlobalVars.platform = process.env.PLATFORM || 'desktop';
+GlobalVars.platform = (_a = process.env.PLATFORM) !== null && _a !== void 0 ? _a : 'desktop';
 GlobalVars.browser = {
-    name: (process.env.BROWSER || 'chromium'),
+    name: ((_b = process.env.BROWSER) !== null && _b !== void 0 ? _b : 'chromium'),
     // Define browser options
     options: {
         headless: !(process.env.HEADLESS === 'false'),
         timeout: 0,
-        slowMo: parseInt(process.env.SLOW_MO || '5', 10),
-        acceptDownloads: !(process.env.ACCEPT_DOWNLOADS || 'true'),
+        slowMo: parseInt((_c = process.env.SLOW_MO) !== null && _c !== void 0 ? _c : '5', 10),
+        acceptDownloads: !((_d = process.env.ACCEPT_DOWNLOADS) !== null && _d !== void 0 ? _d : 'true'),
         args: []
     }
 };
@@ -59,13 +58,13 @@ GlobalVars.browser = {
 GlobalVars.browserContext = {
     options: {
         viewport: {
-            width: parseInt(process.env.WIDTH || '1680', 10),
-            height: parseInt(process.env.HEIGHT || '900', 10)
+            width: parseInt((_e = process.env.WIDTH) !== null && _e !== void 0 ? _e : '1680', 10),
+            height: parseInt((_f = process.env.HEIGHT) !== null && _f !== void 0 ? _f : '900', 10)
         },
-        locale: process.env.LOCALE || 'fr-FR',
+        locale: (_g = process.env.LOCALE) !== null && _g !== void 0 ? _g : 'fr-FR',
         httpCredentials: {
-            username: process.env.HTTP_CRED_USERNAME || '',
-            password: process.env.HTTP_CRED_PASSWORD || ''
+            username: (_h = process.env.HTTP_CRED_USERNAME) !== null && _h !== void 0 ? _h : '',
+            password: (_j = process.env.HTTP_CRED_PASSWORD) !== null && _j !== void 0 ? _j : ''
         }
     }
 };
@@ -76,13 +75,13 @@ GlobalVars.device = {
 GlobalVars.url = process.env.URL;
 /* DB helper vars and functions */
 GlobalVars.db = {
-    host: process.env.DB_HOST || 'localhost',
-    user: process.env.DB_USER || 'root',
-    password: process.env.DB_PASSWORD || '',
-    database: process.env.DB_NAME || 'mydatabase'
+    host: (_k = process.env.DB_HOST) !== null && _k !== void 0 ? _k : 'localhost',
+    user: (_l = process.env.DB_USER) !== null && _l !== void 0 ? _l : 'root',
+    password: (_m = process.env.DB_PASSWORD) !== null && _m !== void 0 ? _m : '',
+    database: (_o = process.env.DB_NAME) !== null && _o !== void 0 ? _o : 'mydatabase'
 };
 /* Screenshots activation */
 GlobalVars.screenshots = {
-    active: process.env.SCREENSHOTS_ON || true,
-    folder: process.env.SCREENSHOTS_FOLDER || './screenshots'
+    active: (_p = process.env.SCREENSHOTS_ON) !== null && _p !== void 0 ? _p : true,
+    folder: (_q = process.env.SCREENSHOTS_FOLDER) !== null && _q !== void 0 ? _q : './screenshots'
 };

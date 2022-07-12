@@ -440,10 +440,8 @@ class CommonPage {
         return __awaiter(this, void 0, void 0, function* () {
             // Delete the target because a new tab is opened when downloading the file
             if (targetBlank) {
-                // @ts-ignore
-                yield page.$eval(selector, (el) => (el.target = ''));
+                yield page.$eval(selector, (el) => (el.textContent = ''));
             }
-            /* eslint-enable no-return-assign, no-param-reassign */
             const [download] = yield Promise.all([
                 page.waitForEvent('download'),
                 page.click(selector)

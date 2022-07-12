@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dbHelper = void 0;
-const mysql = require("mysql2/promise");
+const promise_1 = require("mysql2/promise");
 const globalVars_1 = require("./globalVars");
 class DbHelper {
     // functions
@@ -19,7 +19,7 @@ class DbHelper {
      * @param db
      */
     createPool(db = globalVars_1.GlobalVars.db) {
-        return mysql.createPool(db);
+        return (0, promise_1.createPool)(db);
     }
     /**
      * Execute an sql query
@@ -90,5 +90,4 @@ class DbHelper {
         });
     }
 }
-const dbHelper = new DbHelper();
-exports.dbHelper = dbHelper;
+exports.dbHelper = new DbHelper();

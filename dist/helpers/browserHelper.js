@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -10,8 +33,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.browserHelper = exports.deleteRoute = exports.addRoute = exports.addInitScript = exports.getTab = exports.closeTab = exports.addTab = exports.getBrowserContext = exports.closeContext = exports.createContext = exports.closeBrowser = exports.createBrowser = void 0;
-const playwright = require("playwright");
+const playwright_1 = require("playwright");
 const globalVars_1 = require("./globalVars");
+const playwright = { chromium: playwright_1.chromium, firefox: playwright_1.firefox, webkit: playwright_1.webkit };
 /* Browser functions*/
 /**
  * Create browser with options
@@ -85,7 +109,7 @@ exports.closeContext = closeContext;
  */
 function getBrowserContext(browser, position = -1) {
     const contexts = browser.contexts();
-    if (!contexts || contexts.length === 0) {
+    if (contexts.length === 0) {
         throw new Error('0 Context was found for this browser');
     }
     else if (position < -1 || position >= contexts.length) {
@@ -128,7 +152,7 @@ exports.closeTab = closeTab;
  */
 function getTab(context, position = -1) {
     const tabs = context.pages();
-    if (!tabs || tabs.length === 0) {
+    if (tabs.length === 0) {
         throw new Error('0 Page was found for this context');
     }
     else if (position < -1 || position >= tabs.length) {
@@ -180,4 +204,4 @@ function addInitScript(browserElement, script, args) {
     });
 }
 exports.addInitScript = addInitScript;
-exports.browserHelper = require("./browserHelper");
+exports.browserHelper = __importStar(require("./browserHelper"));

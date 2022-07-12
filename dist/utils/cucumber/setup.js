@@ -10,14 +10,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const cucumber_1 = require("@cucumber/cucumber");
-const browserHelper = require("../../helpers/browserHelper");
+const browserHelper_1 = require("../../helpers/browserHelper");
 let browser;
 /**
  * Create unique browser for all mocha run
  */
 (0, cucumber_1.BeforeAll)(() => __awaiter(void 0, void 0, void 0, function* () {
     // Add browser to mocha context so we can access it from all files
-    browser = yield browserHelper.createBrowser();
+    browser = yield (0, browserHelper_1.createBrowser)();
 }));
 /**
  * Create context and add tan
@@ -25,8 +25,8 @@ let browser;
 (0, cucumber_1.Before)(function () {
     return __awaiter(this, void 0, void 0, function* () {
         this.browser = browser;
-        this.browserContext = yield browserHelper.createContext(this.browser);
-        this.browserTab = yield browserHelper.addTab(this.browserContext);
+        this.browserContext = yield (0, browserHelper_1.createContext)(this.browser);
+        this.browserTab = yield (0, browserHelper_1.addTab)(this.browserContext);
     });
 });
 /**
@@ -35,7 +35,7 @@ let browser;
  */
 (0, cucumber_1.After)(function () {
     return __awaiter(this, void 0, void 0, function* () {
-        yield browserHelper.closeContext(this.browserContext);
+        yield (0, browserHelper_1.closeContext)(this.browserContext);
     });
 });
 /**
@@ -43,6 +43,6 @@ let browser;
  */
 (0, cucumber_1.AfterAll)(function () {
     return __awaiter(this, void 0, void 0, function* () {
-        yield browserHelper.closeBrowser(browser);
+        yield (0, browserHelper_1.closeBrowser)(browser);
     });
 });
