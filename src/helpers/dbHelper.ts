@@ -1,5 +1,6 @@
-import type {Pool} from 'mysql2/promise';
-import * as mysql from 'mysql2/promise';
+import type {FieldPacket, Pool} from 'mysql2/promise';
+import {createPool} from 'mysql2/promise';
+
 import {GlobalVars} from './globalVars';
 
 class DbHelper {
@@ -9,7 +10,7 @@ class DbHelper {
    * @param db
    */
   createPool(db = GlobalVars.db) {
-    return mysql.createPool(db);
+    return createPool(db);
   }
 
   /**
@@ -79,7 +80,7 @@ class DbHelper {
    * @param query {string} Query to execute
    * @returns {Promise<Array<Object>>}
    */
-  async getQueryFields(query: string): Promise<mysql.FieldPacket[]> {
+  async getQueryFields(query: string): Promise<FieldPacket[]> {
     return (await this.executeQuery(query))[1];
   }
 
@@ -91,5 +92,5 @@ class DbHelper {
     await connection.end();
   }
 }
-const dbHelper = new DbHelper();
-export {dbHelper};
+
+export const dbHelper = new DbHelper();

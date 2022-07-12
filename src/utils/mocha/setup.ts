@@ -1,12 +1,15 @@
 import type {Context} from 'mocha';
 import type {Browser} from 'playwright';
+
 import {
   createBrowser,
   closeBrowser,
   getBrowserContext,
   getTab
 } from '../../helpers/browserHelper';
+
 import {GlobalVars} from '../../helpers/globalVars';
+
 let failPosition = 1;
 
 export const mochaHooks = {

@@ -1,9 +1,7 @@
 import {config} from 'dotenv';
 import {devices} from 'playwright';
 
-config({
-  path: '.env'
-});
+config({path: '.env'});
 
 export class GlobalVars {
   private static browsersList = ['chromium', 'firefox', 'webkit'];
