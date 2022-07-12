@@ -4,8 +4,8 @@ import {expect} from 'chai';
 import type {Browser, BrowserContext, Page} from 'playwright';
 
 // Import browser helper
-import {browserHelper} from '~/src';
-import {GlobalVars} from '~/src';
+import {browserHelper} from '~/src/helpers/browserHelper';
+import {GlobalVars} from '~/src/helpers/globalVars';
 
 // Import pages
 import {home as homePage} from '~/examples/pages/mobile/home';
