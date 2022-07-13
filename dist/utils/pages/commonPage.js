@@ -440,7 +440,7 @@ class CommonPage {
         return __awaiter(this, void 0, void 0, function* () {
             // Delete the target because a new tab is opened when downloading the file
             if (targetBlank) {
-                yield page.$eval(selector, (el) => (el.textContent = ''));
+                yield page.$eval(selector, (el) => (el.target = ''));
             }
             const [download] = yield Promise.all([
                 page.waitForEvent('download'),

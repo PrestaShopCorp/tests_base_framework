@@ -1,8 +1,9 @@
-import type { FieldPacket, Pool } from 'mysql2/promise';
+import type { FieldPacket, Pool, RowDataPacket, OkPacket, ResultSetHeader } from 'mysql2/promise';
 declare class DbHelper {
     /**
      * Create a pool
      * @param db
+     * @returns {Pool}
      */
     createPool(db?: {
         host: string;
@@ -15,13 +16,16 @@ declare class DbHelper {
      * @param query {string} Query to execute
      * @returns {Query}
      */
-    executeQuery(query: string): Promise<[import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[][] | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket") | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/ResultSetHeader"), FieldPacket[]]>;
+    executeQuery(query: string): Promise<[
+        (RowDataPacket[] | RowDataPacket[][] | OkPacket | OkPacket[] | ResultSetHeader),
+        FieldPacket[]
+    ]>;
     /**
      * Get query results
      * @param query {string} Query to execute
      * @returns {Promise<Array<Object>>}
      */
-    getQueryResults(query: string): Promise<import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[][] | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket") | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/ResultSetHeader")>;
+    getQueryResults(query: string): Promise<RowDataPacket[] | RowDataPacket[][] | OkPacket | OkPacket[] | ResultSetHeader>;
     /**
      * Create a custom 'SELECT' query
      * @param table {string} Name of the table
@@ -37,7 +41,7 @@ declare class DbHelper {
      * @param conditions {?string} Fields to add to the request
      * @return {Promise<Array<Object>>}
      */
-    getResultsCustomSelectQuery(table: string, fields?: string | string[], conditions?: string): Promise<import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/RowDataPacket")[][] | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket") | import("mysql2/typings/mysql/lib/protocol/packets/OkPacket")[] | import("mysql2/typings/mysql/lib/protocol/packets/ResultSetHeader")>;
+    getResultsCustomSelectQuery(table: string, fields?: string | string[], conditions?: string): Promise<RowDataPacket[] | RowDataPacket[][] | OkPacket | OkPacket[] | ResultSetHeader>;
     /**
      * Get query fields
      * @param query {string} Query to execute

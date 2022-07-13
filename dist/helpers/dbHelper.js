@@ -13,10 +13,10 @@ exports.dbHelper = void 0;
 const promise_1 = require("mysql2/promise");
 const globalVars_1 = require("./globalVars");
 class DbHelper {
-    // functions
     /**
      * Create a pool
      * @param db
+     * @returns {Pool}
      */
     createPool(db = globalVars_1.GlobalVars.db) {
         return (0, promise_1.createPool)(db);
