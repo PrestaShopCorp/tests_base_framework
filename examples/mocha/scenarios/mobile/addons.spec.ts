@@ -3,9 +3,8 @@ import 'module-alias/register';
 import {expect} from 'chai';
 import type {Browser, BrowserContext, Page} from 'playwright';
 
-// Import browser helper
-import {browserHelper} from '~/src/helpers/browserHelper';
-import {GlobalVars} from '~/src/helpers/globalVars';
+// Import source helpers
+import {browserHelper, GlobalVars} from '~/src';
 
 // Import pages
 import {home as homePage} from '~/examples/pages/mobile/home';
