@@ -502,7 +502,7 @@ export class CommonPage {
   ): Promise<string | null> {
     // Delete the target because a new tab is opened when downloading the file
     if (targetBlank) {
-      await page.$eval(selector, (el) => (el.textContent = ''));
+      await page.$eval(selector, (el) => ((el as HTMLFormElement).target = ''));
     }
 
     const [download] = await Promise.all([

@@ -1,7 +1,9 @@
 import type {Browser, BrowserContext, Page, Route, Request} from 'playwright';
+import {chromium, firefox, webkit} from 'playwright';
 
-import * as playwright from 'playwright';
 import {GlobalVars} from './globalVars';
+
+const playwright = {chromium, firefox, webkit};
 
 /* Browser functions*/
 /**

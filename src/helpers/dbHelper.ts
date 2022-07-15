@@ -1,15 +1,23 @@
-import type {Pool} from 'mysql2/promise';
-import * as mysql from 'mysql2/promise';
+import {createPool} from 'mysql2/promise';
+
+import type {
+  FieldPacket,
+  Pool,
+  RowDataPacket,
+  OkPacket,
+  ResultSetHeader
+} from 'mysql2/promise';
+
 import {GlobalVars} from './globalVars';
 
 class DbHelper {
-  // functions
   /**
    * Create a pool
    * @param db
+   * @returns {Pool}
    */
-  createPool(db = GlobalVars.db) {
-    return mysql.createPool(db);
+  createPool(db = GlobalVars.db): Pool {
+    return createPool(db);
   }
 
   /**
@@ -17,7 +25,20 @@ class DbHelper {
    * @param query {string} Query to execute
    * @returns {Query}
    */
-  async executeQuery(query: string) {
+  async executeQuery(
+    query: string
+  ): Promise<
+    [
+      (
+        | RowDataPacket[]
+        | RowDataPacket[][]
+        | OkPacket
+        | OkPacket[]
+        | ResultSetHeader
+      ),
+      FieldPacket[]
+    ]
+  > {
     const connection = this.createPool();
     const results = await connection.execute(query);
     await this.destroyConnection(connection);
@@ -29,7 +50,15 @@ class DbHelper {
    * @param query {string} Query to execute
    * @returns {Promise<Array<Object>>}
    */
-  async getQueryResults(query: string) {
+  async getQueryResults(
+    query: string
+  ): Promise<
+    | RowDataPacket[]
+    | RowDataPacket[][]
+    | OkPacket
+    | OkPacket[]
+    | ResultSetHeader
+  > {
     return (await this.executeQuery(query))[0];
   }
 
@@ -68,7 +97,13 @@ class DbHelper {
     table: string,
     fields: string | string[] = '*',
     conditions?: string
-  ) {
+  ): Promise<
+    | RowDataPacket[]
+    | RowDataPacket[][]
+    | OkPacket
+    | OkPacket[]
+    | ResultSetHeader
+  > {
     return this.getQueryResults(
       this.createCustomSelectQuery(table, fields, conditions)
     );
@@ -79,7 +114,7 @@ class DbHelper {
    * @param query {string} Query to execute
    * @returns {Promise<Array<Object>>}
    */
-  async getQueryFields(query: string): Promise<mysql.FieldPacket[]> {
+  async getQueryFields(query: string): Promise<FieldPacket[]> {
     return (await this.executeQuery(query))[1];
   }
 
@@ -91,5 +126,5 @@ class DbHelper {
     await connection.end();
   }
 }
-const dbHelper = new DbHelper();
-export {dbHelper};
+
+export const dbHelper = new DbHelper();
