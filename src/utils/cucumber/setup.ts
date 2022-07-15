@@ -7,7 +7,7 @@ import {
   addTab,
   closeContext,
   closeBrowser
-} from '../../helpers/browserHelper';
+} from 'src/helpers/browserHelper';
 
 let browser: Browser | null;
 

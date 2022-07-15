@@ -6,9 +6,9 @@ import {
   closeBrowser,
   getBrowserContext,
   getTab
-} from '../../helpers/browserHelper';
+} from 'src/helpers/browserHelper';
 
-import {GlobalVars} from '../../helpers/globalVars';
+import {GlobalVars} from 'src/helpers/globalVars';
 
 let failPosition = 1;
 
