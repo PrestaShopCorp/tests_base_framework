@@ -18,7 +18,7 @@ let browserTab: Page;
 describe('Go to first visit page on addons', (): void => {
   // Create context and add tab
   before(async function () {
-    browserContext = await browserHelper.createContext(<Browser>this.browser);
+    browserContext = await browserHelper.createContext(this.browser as Browser);
     browserTab = await browserHelper.addTab(browserContext);
   });
 
@@ -28,7 +28,7 @@ describe('Go to first visit page on addons', (): void => {
     await browserHelper.closeContext(browserContext);
   });
 
-  it(`should go to '${<string>GlobalVars.url}'`, async () => {
+  it(`should go to '${GlobalVars.url!}'`, async () => {
     await homePage.goTo(browserTab, GlobalVars.url!);
 
     const actualTitle = await homePage.getPageTitle(browserTab);

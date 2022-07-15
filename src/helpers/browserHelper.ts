@@ -70,7 +70,7 @@ async function closeContext(context: BrowserContext): Promise<void> {
  */
 function getBrowserContext(browser: Browser, position = -1): BrowserContext {
   const contexts = browser.contexts();
-  if (!contexts || contexts.length === 0) {
+  if (contexts.length === 0) {
     throw new Error('0 Context was found for this browser');
   } else if (position < -1 || position >= contexts.length) {
     throw new Error(`Position ${position} is wrong to get the context`);
@@ -109,7 +109,7 @@ async function closeTab(tab: Page): Promise<void> {
  */
 function getTab(context: BrowserContext, position = -1): Page {
   const tabs = context.pages();
-  if (!tabs || tabs.length === 0) {
+  if (tabs.length === 0) {
     throw new Error('0 Page was found for this context');
   } else if (position < -1 || position >= tabs.length) {
     throw new Error(`Position ${position} is wrong to get the browser tab`);

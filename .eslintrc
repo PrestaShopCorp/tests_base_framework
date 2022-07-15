@@ -10,7 +10,8 @@
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/strict"
   ],
   "rules": {
     "no-console": "warn",
@@ -24,7 +25,8 @@
       }
     ],
     "require-jsdoc": "warn",
-    "@typescript-eslint/no-non-null-assertion": "off"
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-extraneous-class": "off"
   },
   "parserOptions": {
     "project": ["tsconfig.json"]

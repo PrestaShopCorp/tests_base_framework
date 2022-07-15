@@ -502,10 +502,8 @@ export class CommonPage {
   ): Promise<string | null> {
     // Delete the target because a new tab is opened when downloading the file
     if (targetBlank) {
-      // @ts-ignore
-      await page.$eval(selector, (el) => (el.target = ''));
+      await page.$eval(selector, (el) => (el.textContent = ''));
     }
-    /* eslint-enable no-return-assign, no-param-reassign */
 
     const [download] = await Promise.all([
       page.waitForEvent('download'),
@@ -527,7 +525,7 @@ export class CommonPage {
   ): Promise<DOMRect | undefined> {
     return page.evaluate(
       (sl) =>
-        <DOMRect>document.querySelector(sl)?.getBoundingClientRect().toJSON(),
+        document.querySelector(sl)?.getBoundingClientRect().toJSON() as DOMRect,
       selector
     );
   }
