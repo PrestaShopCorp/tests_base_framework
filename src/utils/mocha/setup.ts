@@ -1,3 +1,5 @@
+import 'module-alias/register';
+
 import type {Context} from 'mocha';
 import type {Browser} from 'playwright';
 

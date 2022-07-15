@@ -1,3 +1,5 @@
+import 'module-alias/register';
+
 import type {Browser, BrowserContext} from 'playwright';
 import {BeforeAll, Before, After, AfterAll} from '@cucumber/cucumber';
 
