@@ -1,3 +1,4 @@
+import 'module-alias/register';
 export declare const mochaHooks: {
     /**
      * Create unique browser for all mocha run

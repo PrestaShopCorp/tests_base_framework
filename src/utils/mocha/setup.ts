@@ -1,3 +1,5 @@
+import 'module-alias/register';
+
 import type {Context} from 'mocha';
 import type {Browser} from 'playwright';
 
@@ -6,9 +8,9 @@ import {
   closeBrowser,
   getBrowserContext,
   getTab
-} from '../../helpers/browserHelper';
+} from 'src/helpers/browserHelper';
 
-import {GlobalVars} from '../../helpers/globalVars';
+import {GlobalVars} from 'src/helpers/globalVars';
 
 let failPosition = 1;
 

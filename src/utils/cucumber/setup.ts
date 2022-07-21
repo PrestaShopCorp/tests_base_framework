@@ -1,3 +1,5 @@
+import 'module-alias/register';
+
 import type {Browser, BrowserContext} from 'playwright';
 import {BeforeAll, Before, After, AfterAll} from '@cucumber/cucumber';
 
@@ -7,7 +9,7 @@ import {
   addTab,
   closeContext,
   closeBrowser
-} from '../../helpers/browserHelper';
+} from 'src/helpers/browserHelper';
 
 let browser: Browser | null;
 

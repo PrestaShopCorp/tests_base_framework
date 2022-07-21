@@ -1,6 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
+  "ignorePatterns": ["*.config.js"],
   "env": {
     "node": true
   },
@@ -35,7 +36,7 @@
   },
   "settings": {
     "import/parsers": {
-      "@typescript-eslint/parser": [".ts"]
+      "@typescript-eslint/parser": [".ts", ".tsx"]
     },
     "import/resolver": {
       "typescript": {
