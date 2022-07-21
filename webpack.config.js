@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require('path');
 const webpack = require('webpack');
 
@@ -16,7 +18,8 @@ module.exports = {
         loader: 'ts-loader',
         exclude: /(node_modules|bower_components)/,
         options: {
-          configFile: 'tsconfig.build.json'
+          configFile: 'tsconfig.build.json',
+          transpileOnly: true
         }
       }
     ]
@@ -44,6 +47,8 @@ module.exports = {
   output: {
     filename: 'index.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+    chunkFormat: 'commonjs',
     clean: true
   },
   target: 'node',

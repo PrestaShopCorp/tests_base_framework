@@ -5,7 +5,7 @@
     "esModuleInterop": true,
     "target": "es6",
     "module": "commonjs",
-    "sourceMap": true,
+    "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
     "noImplicitAny": true,
