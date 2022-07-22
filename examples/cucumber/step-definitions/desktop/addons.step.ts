@@ -23,6 +23,7 @@ Then('I am on addons home page', async function () {
 });
 
 When('I go to first visit page', async function () {
+  await homePage.acceptAllCookies(this.browserTab as Page);
   await homePage.goToFirstVisitLink(this.browserTab as Page);
 });
 
