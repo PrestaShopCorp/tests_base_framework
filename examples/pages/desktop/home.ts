@@ -6,7 +6,7 @@ import {Page} from 'playwright';
 class Home extends CommonPage {
   public pageTitle: string;
 
-  private readonly cookiePopup: string;
+  private readonly cookiePopupOkButton: string;
   private readonly firstVisitLink: string;
 
   constructor() {
@@ -17,7 +17,7 @@ class Home extends CommonPage {
       'PrestaShop Addons Marketplace - Modules, Thèmes & Support';
 
     // Selector
-    this.cookiePopup = '#axeptio_btn_acceptAll';
+    this.cookiePopupOkButton = '#axeptio_btn_acceptAll';
     this.firstVisitLink = '#ps_link_first_visit';
   }
 
@@ -27,7 +27,7 @@ class Home extends CommonPage {
    * @returns {Promise<void>}
    */
   async acceptAllCookies(page: Page) {
-    await this.waitForSelectorAndClick(page, this.cookiePopup);
+    await this.waitForSelectorAndClick(page, this.cookiePopupOkButton);
   }
 
   /**
