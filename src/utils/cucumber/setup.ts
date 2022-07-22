@@ -14,7 +14,7 @@ let browser: Browser | null;
 /**
  * Create unique browser for all mocha run
  */
-BeforeAll(async () => {
+BeforeAll(async (): Promise<void> => {
   // Add browser to mocha context so we can access it from all files
   browser = await createBrowser();
 });
@@ -22,7 +22,7 @@ BeforeAll(async () => {
 /**
  * Create context and add tan
  */
-Before(async function () {
+Before(async function (): Promise<void> {
   this.browser = browser;
   this.browserContext = await createContext(this.browser as Browser);
   this.browserTab = await addTab(this.browserContext as BrowserContext);
@@ -32,13 +32,13 @@ Before(async function () {
  * Destroy context when test is finished
  * Tabs are destroyed with the context
  */
-After(async function () {
+After(async function (): Promise<void> {
   await closeContext(this.browserContext as BrowserContext);
 });
 
 /**
  * Close browser after finish the run
  */
-AfterAll(async function () {
+AfterAll(async function (): Promise<void> {
   await closeBrowser(browser!);
 });
