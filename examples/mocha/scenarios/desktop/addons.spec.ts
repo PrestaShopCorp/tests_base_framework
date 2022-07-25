@@ -35,6 +35,7 @@ describe('Go to first visit page on addons', (): void => {
   });
 
   it('should go to first visit page', async () => {
+    await homePage.acceptAllCookies(browserTab);
     await homePage.goToFirstVisitLink(browserTab);
 
     const actualTitle = await firstVisitPage.getPageTitle(browserTab);
