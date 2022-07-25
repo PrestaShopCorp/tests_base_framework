@@ -1,6 +1,8 @@
 import type {Context} from 'mocha';
 import type {Browser} from 'playwright';
 
+import {GlobalVars} from '../../helpers/globalVars';
+
 import {
   createBrowser,
   closeBrowser,
@@ -8,21 +10,19 @@ import {
   getTab
 } from '../../helpers/browserHelper';
 
-import {GlobalVars} from '../../helpers/globalVars';
-
 let failPosition = 1;
 
 export const mochaHooks = {
   /**
    * Create unique browser for all mocha run
    */
-  beforeAll: async function () {
+  beforeAll: async function (): Promise<void> {
     (this as Context).browser = await createBrowser();
   },
   /**
    * Take screenshot after fail
    */
-  afterEach: async function () {
+  afterEach: async function (): Promise<void> {
     if (
       GlobalVars.screenshots.active &&
       (this as Context).currentTest?.state === 'failed'
@@ -41,7 +41,7 @@ export const mochaHooks = {
   /**
    * Close browser after finish the run
    */
-  afterAll: async function () {
+  afterAll: async function (): Promise<void> {
     await closeBrowser((this as Context).browser as Browser);
   }
 };

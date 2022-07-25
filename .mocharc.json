@@ -1,5 +1,8 @@
 {
-  "require": ["ts-node/register", "src/utils/mocha/setup.ts"],
+  "require": [
+    "ts-node/register",
+    "src/utils/mocha/setup.ts"
+  ],
   "slow": 45000,
   "timeout": 0,
   "reporter": "mochawesome"

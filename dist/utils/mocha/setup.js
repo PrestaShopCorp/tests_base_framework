@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mochaHooks = void 0;
-const browserHelper_1 = require("../../helpers/browserHelper");
 const globalVars_1 = require("../../helpers/globalVars");
+const browserHelper_1 = require("../../helpers/browserHelper");
 let failPosition = 1;
 exports.mochaHooks = {
     /**
