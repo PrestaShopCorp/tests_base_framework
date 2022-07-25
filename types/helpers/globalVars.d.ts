@@ -1,15 +1,14 @@
-import 'dotenv/config';
 export declare class GlobalVars {
     private static browsersList;
     private static platformsList;
     static platform: string;
     static browser: {
-        name: string;
+        name: "chromium" | "firefox" | "webkit";
         options: {
-            headless: any;
+            headless: boolean;
             timeout: number;
             slowMo: number;
-            acceptDownloads: any;
+            acceptDownloads: boolean;
             args: string[];
         };
     };
@@ -17,17 +16,17 @@ export declare class GlobalVars {
      * Get browser options
      */
     static getBrowserOptions(): {
-        headless: any;
+        headless: boolean;
         timeout: number;
         slowMo: number;
-        acceptDownloads: any;
+        acceptDownloads: boolean;
         args: string[];
     } | {
         chromiumSandbox: boolean;
-        headless: any;
+        headless: boolean;
         timeout: number;
         slowMo: number;
-        acceptDownloads: any;
+        acceptDownloads: boolean;
         args: string[];
     };
     static browserContext: {
@@ -44,7 +43,7 @@ export declare class GlobalVars {
         };
     };
     static device: {
-        name: string | undefined;
+        name: string;
     };
     /**
      * Get Browser context options

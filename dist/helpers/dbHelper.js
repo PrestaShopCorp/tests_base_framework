@@ -10,16 +10,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.dbHelper = void 0;
-const mysql = require("mysql2/promise");
+const promise_1 = require("mysql2/promise");
 const globalVars_1 = require("./globalVars");
 class DbHelper {
-    // functions
     /**
      * Create a pool
      * @param db
+     * @returns {Pool}
      */
     createPool(db = globalVars_1.GlobalVars.db) {
-        return mysql.createPool(db);
+        return (0, promise_1.createPool)(db);
     }
     /**
      * Execute an sql query
@@ -28,7 +28,7 @@ class DbHelper {
      */
     executeQuery(query) {
         return __awaiter(this, void 0, void 0, function* () {
-            const connection = yield this.createPool();
+            const connection = this.createPool();
             const results = yield connection.execute(query);
             yield this.destroyConnection(connection);
             return results;
@@ -49,16 +49,14 @@ class DbHelper {
      * @param table {string} Name of the table
      * @param fields {string|Array<string>} Fields to add to the request
      * @param conditions {?string} Fields to add to the request
-     * @return {Promise<string>}
+     * @return {string}
      */
     createCustomSelectQuery(table, fields = '*', conditions) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const query = (customFields) => `SELECT ${customFields} FROM ${table} ${!conditions ? '' : `where ${conditions}`};`;
-            if (typeof fields === 'string') {
-                return query(fields);
-            }
-            return query(fields.join(','));
-        });
+        const query = (customFields) => `SELECT ${customFields} FROM ${table} ${!conditions ? '' : `where ${conditions}`};`;
+        if (typeof fields === 'string') {
+            return query(fields);
+        }
+        return query(fields.join(','));
     }
     /**
      * Execute a custom 'SELECT' query
@@ -69,7 +67,7 @@ class DbHelper {
      */
     getResultsCustomSelectQuery(table, fields = '*', conditions) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.getQueryResults(yield this.createCustomSelectQuery(table, fields, conditions));
+            return this.getQueryResults(this.createCustomSelectQuery(table, fields, conditions));
         });
     }
     /**
@@ -92,5 +90,4 @@ class DbHelper {
         });
     }
 }
-const dbHelper = new DbHelper();
-exports.dbHelper = dbHelper;
+exports.dbHelper = new DbHelper();

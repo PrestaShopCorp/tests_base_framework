@@ -21,11 +21,9 @@ export {
 } from './helpers/browserHelper';
 export * as browserHelper from './helpers/browserHelper';
 
-
 // Export utils
 /* Export Common page */
 export {CommonPage} from './utils/pages/commonPage';
 
 /* Export Mocha hooks */
 export {mochaHooks} from './utils/mocha/setup';
-

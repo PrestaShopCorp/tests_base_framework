@@ -1,15 +1,23 @@
-import type {Pool} from 'mysql2/promise';
-import * as mysql from 'mysql2/promise';
+import {createPool} from 'mysql2/promise';
+
+import type {
+  FieldPacket,
+  Pool,
+  RowDataPacket,
+  OkPacket,
+  ResultSetHeader
+} from 'mysql2/promise';
+
 import {GlobalVars} from './globalVars';
 
 class DbHelper {
-  // functions
   /**
    * Create a pool
    * @param db
+   * @returns {Pool}
    */
-  createPool(db = GlobalVars.db) {
-    return mysql.createPool(db);
+  createPool(db = GlobalVars.db): Pool {
+    return createPool(db);
   }
 
   /**
@@ -17,8 +25,21 @@ class DbHelper {
    * @param query {string} Query to execute
    * @returns {Query}
    */
-  async executeQuery(query: string) {
-    const connection = await this.createPool();
+  async executeQuery(
+    query: string
+  ): Promise<
+    [
+      (
+        | RowDataPacket[]
+        | RowDataPacket[][]
+        | OkPacket
+        | OkPacket[]
+        | ResultSetHeader
+      ),
+      FieldPacket[]
+    ]
+  > {
+    const connection = this.createPool();
     const results = await connection.execute(query);
     await this.destroyConnection(connection);
     return results;
@@ -29,7 +50,15 @@ class DbHelper {
    * @param query {string} Query to execute
    * @returns {Promise<Array<Object>>}
    */
-  async getQueryResults(query: string) {
+  async getQueryResults(
+    query: string
+  ): Promise<
+    | RowDataPacket[]
+    | RowDataPacket[][]
+    | OkPacket
+    | OkPacket[]
+    | ResultSetHeader
+  > {
     return (await this.executeQuery(query))[0];
   }
 
@@ -38,15 +67,17 @@ class DbHelper {
    * @param table {string} Name of the table
    * @param fields {string|Array<string>} Fields to add to the request
    * @param conditions {?string} Fields to add to the request
-   * @return {Promise<string>}
+   * @return {string}
    */
-  async createCustomSelectQuery(
+  createCustomSelectQuery(
     table: string,
-    fields: string|Array<string> = '*',
-    conditions?: string,
-  ) {
-    const query =
-      (customFields: string) => `SELECT ${customFields} FROM ${table} ${!conditions ? '' : `where ${conditions}`};`;
+    fields: string | string[] = '*',
+    conditions?: string
+  ): string {
+    const query = (customFields: string) =>
+      `SELECT ${customFields} FROM ${table} ${
+        !conditions ? '' : `where ${conditions}`
+      };`;
 
     if (typeof fields === 'string') {
       return query(fields);
@@ -64,11 +95,17 @@ class DbHelper {
    */
   async getResultsCustomSelectQuery(
     table: string,
-    fields: string|Array<string> = '*',
-    conditions?: string,
-  ) {
+    fields: string | string[] = '*',
+    conditions?: string
+  ): Promise<
+    | RowDataPacket[]
+    | RowDataPacket[][]
+    | OkPacket
+    | OkPacket[]
+    | ResultSetHeader
+  > {
     return this.getQueryResults(
-      await this.createCustomSelectQuery(table, fields, conditions),
+      this.createCustomSelectQuery(table, fields, conditions)
     );
   }
 
@@ -77,7 +114,7 @@ class DbHelper {
    * @param query {string} Query to execute
    * @returns {Promise<Array<Object>>}
    */
-  async getQueryFields(query: string) {
+  async getQueryFields(query: string): Promise<FieldPacket[]> {
     return (await this.executeQuery(query))[1];
   }
 
@@ -89,5 +126,5 @@ class DbHelper {
     await connection.end();
   }
 }
-const dbHelper = new DbHelper();
-export {dbHelper};
+
+export const dbHelper = new DbHelper();

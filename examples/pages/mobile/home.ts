@@ -1,9 +1,11 @@
 import 'module-alias/register';
+
 import {CommonPage} from '~/src';
 import {Page} from 'playwright';
 
 class Home extends CommonPage {
   public pageTitle: string;
+
   private readonly headerBlock: string;
   private readonly burgerMenuIcon: string;
   private readonly firstVisitLink: string;
@@ -12,7 +14,8 @@ class Home extends CommonPage {
     super();
 
     // Text
-    this.pageTitle = 'PrestaShop Addons Marketplace - Modules, Thèmes & Support';
+    this.pageTitle =
+      'PrestaShop Addons Marketplace - Modules, Thèmes & Support';
 
     // Selector
     this.headerBlock = '.header';
@@ -29,7 +32,7 @@ class Home extends CommonPage {
     // Open menu by clicking on burger icon
     await Promise.all([
       page.click(this.burgerMenuIcon),
-      this.waitForVisibleSelector(page, this.firstVisitLink),
+      this.waitForVisibleSelector(page, this.firstVisitLink)
     ]);
 
     await this.clickAndWaitForNavigation(page, this.firstVisitLink);

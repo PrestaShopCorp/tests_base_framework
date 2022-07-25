@@ -1,19 +1,33 @@
 import 'module-alias/register';
+
 import {CommonPage} from '~/src';
 import {Page} from 'playwright';
 
 class Home extends CommonPage {
   public pageTitle: string;
+
+  private readonly cookiePopupOkButton: string;
   private readonly firstVisitLink: string;
 
   constructor() {
     super();
 
     // Text
-    this.pageTitle = 'PrestaShop Addons Marketplace - Modules, Thèmes & Support';
+    this.pageTitle =
+      'PrestaShop Addons Marketplace - Modules, Thèmes & Support';
 
     // Selector
+    this.cookiePopupOkButton = '#axeptio_btn_acceptAll';
     this.firstVisitLink = '#ps_link_first_visit';
+  }
+
+  /**
+   * Click on 'OK for me' button
+   * @param page {Page} Browser tab
+   * @returns {Promise<void>}
+   */
+  async acceptAllCookies(page: Page) {
+    await this.waitForSelectorAndClick(page, this.cookiePopupOkButton);
   }
 
   /**

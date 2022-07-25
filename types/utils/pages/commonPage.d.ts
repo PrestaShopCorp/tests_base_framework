@@ -21,9 +21,16 @@ export declare class CommonPage {
     /**
      * Get current url
      * @param page {Page} Browser tab
-     * @returns {Promise<string>}
+     * @returns {string}
      */
-    getCurrentURL(page: Page): Promise<string>;
+    getCurrentURL(page: Page): string;
+    /**
+     * Wait for timeout to sleep a browsing
+     * @param page {Page} Browser tab
+     * @param timeout {number} Time to wait on milliseconds before throwing an error
+     * @returns {Promise<void>}
+     */
+    waitForTimeout(page: Page, timeout?: number): Promise<void>;
     /**
      * Wait for selector to have a state
      * @param page {Page} Browser tab
@@ -139,9 +146,9 @@ export declare class CommonPage {
      * @param page {Page} Browser tab
      * @param accept {boolean} True to accept the dialog, false to dismiss
      * @param text {string} Text to set on dialog input
-     * @return {Promise<void>}
+     * @returns {void}
      */
-    dialogListener(page: Page, accept?: boolean, text?: string): Promise<void>;
+    dialogListener(page: Page, accept: boolean, text: string): void;
     /**
      * Close actual tab and goto another tab if wanted
      * @param browserContext {BrowserContext} Context of the page

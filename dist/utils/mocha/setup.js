@@ -10,8 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.mochaHooks = void 0;
-const browserHelper_1 = require("../../helpers/browserHelper");
 const globalVars_1 = require("../../helpers/globalVars");
+const browserHelper_1 = require("../../helpers/browserHelper");
 let failPosition = 1;
 exports.mochaHooks = {
     /**
@@ -26,15 +26,17 @@ exports.mochaHooks = {
      * Take screenshot after fail
      */
     afterEach: function () {
+        var _a;
         return __awaiter(this, void 0, void 0, function* () {
-            if (globalVars_1.GlobalVars.screenshots.active && this.currentTest.state === 'failed') {
+            if (globalVars_1.GlobalVars.screenshots.active &&
+                ((_a = this.currentTest) === null || _a === void 0 ? void 0 : _a.state) === 'failed') {
                 // Get last context used
-                const context = yield (0, browserHelper_1.getBrowserContext)(this.browser);
+                const context = (0, browserHelper_1.getBrowserContext)(this.browser);
                 // Get last used tab
-                const page = yield (0, browserHelper_1.getTab)(context);
+                const page = (0, browserHelper_1.getTab)(context);
                 yield page.screenshot({
                     path: `${globalVars_1.GlobalVars.screenshots.folder}/${failPosition}.png`,
-                    fullPage: true,
+                    fullPage: true
                 });
                 failPosition++;
             }

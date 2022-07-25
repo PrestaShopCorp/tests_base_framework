@@ -59,6 +59,8 @@ jobs:
         run: npm install
 
       - name: Run tests
+        env:
+          CUCUMBER_PUBLISH_TOKEN: '${{ secrets.CUCUMBER_PUBLISH_TOKEN }}'
         run: npm run test:cucumber:desktop
 
       - uses: actions/upload-artifact@v3
@@ -112,6 +114,7 @@ jobs:
       - name: Run tests
         run: npm run test:cucumber:mobile
         env:
+          CUCUMBER_PUBLISH_TOKEN: '${{ secrets.CUCUMBER_PUBLISH_TOKEN }}'
           PLATFORM: 'mobile'
           DEVICE: 'Pixel 2'
 

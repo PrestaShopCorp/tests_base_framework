@@ -1,41 +1,44 @@
-import type {Browser} from 'playwright';
+import type {Browser, BrowserContext} from 'playwright';
+import {BeforeAll, Before, After, AfterAll} from '@cucumber/cucumber';
 
 import {
-  BeforeAll, Before, After, AfterAll,
-} from '@cucumber/cucumber';
+  createBrowser,
+  createContext,
+  addTab,
+  closeContext,
+  closeBrowser
+} from '../../helpers/browserHelper';
 
-import * as browserHelper from '../../helpers/browserHelper';
-
-let browser: Browser|null;
+let browser: Browser | null;
 
 /**
  * Create unique browser for all mocha run
  */
-BeforeAll(async () => {
+BeforeAll(async (): Promise<void> => {
   // Add browser to mocha context so we can access it from all files
-  browser = await browserHelper.createBrowser();
+  browser = await createBrowser();
 });
 
 /**
  * Create context and add tan
  */
-Before(async function () {
+Before(async function (): Promise<void> {
   this.browser = browser;
-  this.browserContext = await browserHelper.createContext(this.browser);
-  this.browserTab = await browserHelper.addTab(this.browserContext);
+  this.browserContext = await createContext(this.browser as Browser);
+  this.browserTab = await addTab(this.browserContext as BrowserContext);
 });
 
 /**
  * Destroy context when test is finished
  * Tabs are destroyed with the context
  */
-After(async function () {
-  await browserHelper.closeContext(this.browserContext);
+After(async function (): Promise<void> {
+  await closeContext(this.browserContext as BrowserContext);
 });
 
 /**
  * Close browser after finish the run
  */
-AfterAll(async function () {
-  await browserHelper.closeBrowser(browser!);
+AfterAll(async function (): Promise<void> {
+  await closeBrowser(browser!);
 });

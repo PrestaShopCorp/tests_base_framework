@@ -1,3 +1,5 @@
 node_modules
 mochawesome-report
 .idea
+screenshots
+.env

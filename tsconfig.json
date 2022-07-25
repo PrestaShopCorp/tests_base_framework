@@ -1,19 +1,18 @@
 {
-  "include": [
-    "src/index.ts",
-    "src/helpers/**/*.ts",
-    "src/utils/pages/**/*.ts",
-    "src/utils/mocha/**/*.ts"
-  ],
   "compilerOptions": {
+    "listEmittedFiles": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "target": "es6",
     "module": "commonjs",
     "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noImplicitThis": false,
     "strict": true,
     "strictFunctionTypes": true,
+    "isolatedModules": true,
     "declaration": true,
     "declarationDir": "./types",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -26,6 +25,10 @@
     "typeRoots": [
       "./node_modules/@types",
       "./node_modules/playwright/types"
-    ]
-  }
+    ],
+  },
+  "include": [
+    "src/**/*.ts",
+    "examples/**/*.ts"
+  ]
 }
